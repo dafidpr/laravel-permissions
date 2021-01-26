@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Route Auth
+Route::get('/', [AuthController::class, 'index']);
 
-Route::get('/', function () {
-    return view('welcome');
+// Route Admin
+Route::group(['prefix' => 'administrator'], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 });
