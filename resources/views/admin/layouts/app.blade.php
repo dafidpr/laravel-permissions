@@ -43,6 +43,7 @@
 <script src="{{ asset('admin/assets/assets/js/charts/gd-default.js?ver=2.2.0') }}"></script>
 <script src="{{ asset('admin/assets/assets/js/charts/gd-analytics.js?ver=2.2.0') }}"></script>
 <script src="{{ asset('admin/assets/assets/js/libs/jqvmap.js?ver=2.2.0') }}"></script>
+<script src="{{ asset('admin/assets/assets/js/example-sweetalert.js?ver=2.2.0') }}"></script>
 @if(isset($mod))
 <!--Script Custom-->
 <script src="{{ asset('admin/mod/' . $mod . '.js') }}"></script>

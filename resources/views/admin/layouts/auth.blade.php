@@ -21,4 +21,6 @@
 @section('script')
 <script src="{{ asset('admin/assets/assets/js/bundle.js?ver=2.2.0') }}"></script>
 <script src="{{ asset('admin/assets/assets/js/scripts.js?ver=2.2.0') }}"></script>
+<script src="{{ asset('admin/assets/assets/js/example-sweetalert.js?ver=2.2.0') }}"></script>
+<script src="{{ asset('admin/mod/mod_auth.js') }}"></script>
 @endsection

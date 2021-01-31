@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 
 /*
@@ -15,9 +16,20 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 |
 */
 // Route Auth
-Route::get('/', [AuthController::class, 'index']);
-
-// Route Admin
-Route::group(['prefix' => 'administrator'], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::group(['middleware' => ['auth.logout_only']], function () {
+    
+    Route::get('/', [AuthController::class, 'index'])->name('login');
+    Route::post('/login', [AuthController::class, 'postLogin']);
+    Route::get('/logout', [AuthController::class, 'logout']);
 });
+
+
+// Route Administrator
+Route::prefix('administrator')->middleware(['auth.login_only'])->group(function(){
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    // User
+    Route::get('/users', [UserController::class, 'index']);
+});
+

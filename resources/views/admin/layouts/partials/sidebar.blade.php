@@ -34,10 +34,10 @@
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
-                                    <a href="html/user-list-regular.html" class="nk-menu-link"><span class="nk-menu-text">Users</span></a>
+                                    <a href="/administrator/users" class="nk-menu-link"><span class="nk-menu-text">Users</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-                                    <a href="html/user-list-compact.html" class="nk-menu-link"><span class="nk-menu-text">Role</span></a>
+                                    <a href="/administrator/roles" class="nk-menu-link"><span class="nk-menu-text">Role</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
@@ -48,15 +48,15 @@
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
-                                    <a href="html/apps-messages.html" class="nk-menu-link"><span class="nk-menu-text">Menu Manager</span></a>
+                                    <a href="/administrator/menus" class="nk-menu-link"><span class="nk-menu-text">Menu Manager</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-                                    <a href="html/apps-inbox.html" class="nk-menu-link"><span class="nk-menu-text">Sub Menu Manager</span></a>
+                                    <a href="/administrator/submenus" class="nk-menu-link"><span class="nk-menu-text">Sub Menu Manager</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item">
-                            <a href="html/index-analytics.html" class="nk-menu-link">
+                            <a href="/administrator/permissions" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-security"></em></span>
                                 <span class="nk-menu-text">Permissions </span>
                             </a>

@@ -8,6 +8,7 @@
             <img class="logo-dark logo-img logo-img-lg" src="{{ asset('admin/assets/images/logo-dark.png') }}" srcset="{{ asset('admin/assets/images/logo-dark2x.png 2x') }}" alt="logo-dark">
         </a>
     </div>
+   
     <div class="card card-bordered mb-5">
         <div class="card-inner card-inner-lg">
             <div class="nk-block-head">
@@ -18,28 +19,32 @@
                     </div>
                 </div>
             </div>
-            <form action="html/index.html">
+                
+            <div class="d-error"></div>
+            <form action="/login" method="POST" id="formLogin">
                 <div class="form-group">
                     <div class="form-label-group">
-                        <label class="form-label" for="default-01">Email or Username</label>
+                        <label class="form-label" for="default-01">Email</label>
                     </div>
-                    <input type="text" class="form-control form-control-lg" id="default-01" placeholder="Enter your email address or username">
+                    <input type="text" class="form-control form-control-lg" name="email" id="default-01" placeholder="Enter your email address" autocomplete="off">
+                    <i class="text-danger small d-none" id="emailErr"></i>
                 </div>
                 <div class="form-group">
                     <div class="form-label-group">
                         <label class="form-label" for="password">Password</label>
-                        <a class="link link-primary link-sm" href="html/pages/auths/auth-reset-v2.html">Forgot Password?</a>
+                        <a class="link link-primary link-sm" href="/forgot">Forgot Password?</a>
                     </div>
                     <div class="form-control-wrap">
-                        <a href="#" class="form-icon form-icon-right passcode-switch" data-target="password">
+                        <a href="#" class="form-icon form-icon-right passcode-switch show-password" data-target="password">
                             <em class="passcode-icon icon-show icon ni ni-eye"></em>
                             <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
                         </a>
-                        <input type="password" class="form-control form-control-lg" id="password" placeholder="Enter your password">
+                        <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Enter your password" autocomplete="off">
                     </div>
+                    <i class="text-danger small d-none" id="passErr"></i>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Sign in</button>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
                 </div>
             </form>
         </div>
