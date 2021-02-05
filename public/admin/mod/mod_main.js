@@ -7,73 +7,7 @@ $(document).ready(function () {
 		displayErrors = "";
 	}
 
-	if (typeof dtDrawCallback == "undefined") {
-		dtDrawCallback = null;
-	}
-
-	if (typeof dtDrawCallback == "undefined") {
-		dtDrawCallback = () => {};
-	}
-
-	loadData(dataColumns, dtDrawCallback);
-
-	if (typeof dataTableOptions == "undefined") {
-		var dataTableOptions = null;
-	}
-
-	function loadData(columns = [], drawCallback) {
-		// var datatableUrl = $("#DataTable").data("url");
-
-		// $("#DataTable").DataTable({
-		// 	processing: true,
-		// 	serverSide: true,
-		// 	ajax: {
-		// 		url: datatableUrl,
-		// 		type: "POST",
-		// 		dataType: "json",
-		// 	},
-		// 	columns: columns,
-		// 	responsive: true,
-		// 	dataTableOptions,
-		// 	drawCallback,
-		// });
-
-		// loadDataTablesInit();
-		// loadDataTablesResponsive();
-		formSubmit();
-	}
-
-	// function loadDataTablesInit() {
-	// 	$("#DataTable").on("draw.dt", function () {
-	// 		$(".action").click(function () {
-	// 			var toggle = $(this).data("toggle");
-	// 			var dataUrl = $(this).data("url");
-
-	// 			if (toggle == "edit") {
-	// 				window.location.assign(base_url + dataUrl);
-	// 			}
-	// 			if (toggle == "delete") {
-	// 				itemDelete(dataUrl);
-	// 			}
-	// 		});
-	// 	});
-	// }
-
-	// function loadDataTablesResponsive(){
-	// 	$("#DataTable").DataTable().on("responsive-display", function () {
-	// 		$(".action").click(function () {
-	// 			var toggle = $(this).data("toggle");
-	// 			var dataUrl = $(this).data("url");
-
-	// 			if (toggle == "edit") {
-	// 				window.location.assign(base_url + dataUrl);
-	// 			}
-	// 			if (toggle == "delete") {
-	// 				itemDelete(dataUrl);
-	// 			}
-	// 		});
-	// 	});
-	// }
+	formSubmit();
 
 	function itemDelete(url) {
 		Swal.fire({
@@ -119,7 +53,6 @@ $(document).ready(function () {
 			setError(displayErrors);
 			$('button[type="submit"]').addClass("disabled");
 			$('button[type="submit"]').html("Loading...");
-			var dataRedirect = $(this).data("redirect");
 			$.ajax({
                  headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -132,63 +65,48 @@ $(document).ready(function () {
 				processData: false,
 				success: function (data) {
 					$('button[type="submit"]').removeClass("disabled");
-					$('button[type="submit"]').html('<i class="fe fe-send"></i> Submit');
-					if (data.status == 400 || data.status == 500) {
-						if (data.status == 400) {
-							displayError(displayErrors, data);
-						} else {
-							Swal.fire({
-								title: "Failed",
-								icon: "error",
-								text: data.message,
-							});
-						}
-					} else {
-						Swal
-							.fire({
-								title: "Success",
-								icon: "success",
-								text: data.message,
-							})
-							.then(function () {
-								if (dataRedirect != null || dataRedirect != undefined) {
-									window.location.assign(base_url + dataRedirect);
-									loadData();
-								} else {
-									$("#DataTable").DataTable().ajax.reload();
-									$("#" + $(".modal").attr("id")).modal("hide");
-								}
-
-								if(typeof loadDataBills != 'undefined'){
-									loadDataBills();
-								}
-							});
-					}
+					$('button[type="submit"]').html('<em class="icon ni ni-send"></em><span> Save changes </span>');
+					Swal.fire({
+						title: "Success",
+						icon: "success",
+						text: data.messages,
+					}).then(function () {
+						window.location.href = url + data.redirect;
+					});
 				},
 				error: function (xhr, ajaxOptions, thrownError) {
 					console.error(thrownError);
 					$('button[type="submit"]').removeClass("disabled");
-					$('button[type="submit"]').html('<i class="fe fe-send"></i> Submit');
-					Swal.fire({
-						title: xhr.status,
-						icon: "warning",
-						text: thrownError,
-					});
+					$('button[type="submit"]').html('<em class="icon ni ni-send"></em><span> Save changes </span>');
+					if(xhr.status == 400){
+						displayError(displayErrors, xhr.responseJSON);
+					} else if(xhr.status == 409){
+						Swal.fire({
+							title: 'Error ' + xhr.status,
+							icon: "error",
+							text: xhr.responseJSON['messages']
+						});
+					} else {
+						Swal.fire({
+							title: 'Error ' + xhr.status,
+							icon: "error",
+							text: 'GET ' + url + '/' + $('#formSubmit').attr('action') + ' ' + thrownError
+						});
+					}
 				},
 			});
 		});
 	}
 
-	function displayError(options, data) {
-		$.each(options, function (key, value) {
-			if (data[value.inputName]) {
-				$(value.display).removeClass("d-none");
-				$(value.display).html(data[value.inputName]);
-				$('input[name="' + value.inputName + '"]').addClass("is-invalid");
+	function displayError(options, data){
+		$.each(options, function(key, value){
+			if(data.messages[value.inputName] && data.messages[value.inputName][0]){
+				$(value.display).removeClass('d-none');
+				$('input[name="'+value.inputName+'"]').addClass('is-invalid');
+				$(value.display).html(data.messages[value.inputName][0]);
 			}
 		});
 	}
-
 	function setError(options) {
 		$.each(options, function (key, value) {
 			$(value.display).addClass("d-none");
@@ -203,23 +121,15 @@ $(document).ready(function () {
 		});
 	});
 
-	$("#logout").click(function (e) {
-		e.preventDefault();
-		Swal
-			.fire({
-				title: "Logout?",
-				icon: "warning",
-				text: "Are you sure to logout?",
-				showConfirmButton: true,
-				confirmButtonText: "Yes, sure",
-				showCancelButton: true,
-				cancelButtonText: "No",
-			})
-			.then((result) => {
-				if (result.isConfirmed) {
-					var url = $(this).attr("href");
-					window.location.assign(url);
-				}
-			});
-	});
+	checkAll();
+	function checkAll()
+	{
+		$('#uid').click(function(){
+			if ( (this).checked == true ){
+				$('.uid').prop('checked', true);
+			} else {
+				$('.uid').prop('checked', false);
+			}
+		})
+	}
 });

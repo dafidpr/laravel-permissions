@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 
 /*
@@ -31,5 +32,10 @@ Route::prefix('administrator')->middleware(['auth.login_only'])->group(function(
 
     // User
     Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/create', [UserController::class, 'create']);
+    Route::post('/users/store', [UserController::class, 'store']);
+    
+    // Role
+    Route::get('/roles', [RoleController::class, 'index']);
 });
 

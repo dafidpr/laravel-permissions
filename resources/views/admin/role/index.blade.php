@@ -7,7 +7,7 @@
             <div class="nk-block-head-content">
                 <h3 class="nk-block-title page-title"><?php echo $title?></h3>
                 <div class="nk-block-des text-soft">
-                    <p>You have total <?php echo $collection->count()?> users.</p>
+                    <p>You have total <?php echo $collection->count()?> roles.</p>
                 </div>
             </div><!-- .nk-block-head-content -->
             <div class="nk-block-head-content">
@@ -15,7 +15,7 @@
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            <li><a href="/administrator/users/create" class="btn btn-light bg-white"><em class="icon ni ni-plus"></em><span>Add New User</span></a></li>
+                            <li><a href="/administrator/users/create" class="btn btn-light bg-white"><em class="icon ni ni-plus"></em><span>Add New Role</span></a></li>
                         </ul>
                     </div>
                 </div><!-- .toggle-wrap -->
@@ -32,8 +32,8 @@
                                 <div class="form-wrap w-150px">
                                     <select class="form-select form-select-sm" data-search="off" data-placeholder="Bulk Action">
                                         <option value="">Bulk Action</option>
-                                        <option value="delete">Delete User</option>
-                                        <option value="block">Block User</option>
+                                        <option value="delete">Delete Role</option>
+                                        <option value="block">Block Role</option>
                                     </select>
                                 </div>
                                 <div class="btn-wrap">
@@ -103,12 +103,8 @@
                                     <label class="custom-control-label" for="uid"></label>
                                 </div>
                             </div>
-                            <div class="nk-tb-col"><span class="sub-text">Full Name</span></div>
-                            <div class="nk-tb-col tb-col-mb"><span class="sub-text">Email</span></div>
-                            <div class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></div>
-                            <div class="nk-tb-col tb-col-lg"><span class="sub-text">Role</span></div>
-                            <div class="nk-tb-col tb-col-lg"><span class="sub-text">Last Login</span></div>
-                            <div class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></div>
+                            <div class="nk-tb-col"><span class="sub-text">Role Name</span></div>
+                            <div class="nk-tb-col tb-col-mb"><span class="sub-text">Guard</span></div>
                             <div class="nk-tb-col nk-tb-col-tools text-right"></div>
                         </div><!-- .nk-tb-item -->
                         @foreach ($collection as $item)
@@ -120,37 +116,11 @@
                                     <label class="custom-control-label" for="uid<?= $loop->iteration ?>"></label>
                                 </div>
                             </div>
-                            <div class="nk-tb-col">
-                                <a href="html/user-details-regular.html">
-                                    <div class="user-card">
-                                        <div class="user-avatar bg-primary">
-                                            <span>AB</span>
-                                        </div>
-                                        <div class="user-info">
-                                            <span class="tb-lead"><?php echo $item->name?> <span class="dot dot-success d-md-none ml-1"></span></span>
-                                            <span><?php echo $item->username?></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
                             <div class="nk-tb-col tb-col-mb">
-                                <span><?php echo $item->email?></span>
+                                <span><?php echo $item->name?></span>
                             </div>
                             <div class="nk-tb-col tb-col-md">
-                                <span><?php echo $item->phone_number?></span>
-                            </div>
-                            <div class="nk-tb-col tb-col-lg">
-                                <span><em class="icon ni ni-shield-star"></em> <?php echo $item->roles[0]['name']?></span>
-                            </div>
-                            <div class="nk-tb-col tb-col-lg">
-                                <span><?php echo $item->last_login?></span>
-                            </div>
-                            <div class="nk-tb-col tb-col-md">
-                                @if ($item->block == 'N')
-                                    <span class="tb-status text-success">Active</span>
-                                    @else
-                                    <span class="tb-status text-danger">Block</span>
-                                @endif
+                                <span><?php echo $item->guard_name?></span>
                             </div>
                             <div class="nk-tb-col nk-tb-col-tools">
                                 <ul class="nk-tb-actions gx-1">
@@ -159,11 +129,8 @@
                                             <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <ul class="link-list-opt no-bdr">
-                                                    <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit User</span></a></li>
-                                                    <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete User</span></a></li>
-                                                    <li><a href="#"><em class="icon ni ni-eye"></em><span>User Detail</span></a></li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#"><em class="icon ni ni-na"></em><span>Block User</span></a></li>
+                                                    <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Role</span></a></li>
+                                                    <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Role</span></a></li>
                                                 </ul>
                                             </div>
                                         </div>
