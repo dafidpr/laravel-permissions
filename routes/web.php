@@ -37,5 +37,6 @@ Route::prefix('administrator')->middleware(['auth.login_only'])->group(function(
     
     // Role
     Route::get('/roles', [RoleController::class, 'index']);
+    Route::post('/role/store', [RoleController::class, 'store']);
 });
 

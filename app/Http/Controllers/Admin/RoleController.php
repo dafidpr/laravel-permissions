@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
@@ -41,7 +42,36 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(\Request::ajax()){
+            $validator = Validator::make($request->All(), [
+                'role'      => 'required',
+            ]);
+
+            if($validator->fails()){
+                return response()->json([
+                    'messages' => $validator->messages()
+                ], 400);
+            } else {
+
+                try {
+                    $role = Role::create([
+                        'name'      => $request->role,
+                    ]);
+
+                    return response()->json([
+                        'messages'  => 'New user successfuly created',
+                        'redirect'  => '/administrator/roles'
+                    ], 200);
+
+                } catch (Exeption $e){
+                    return response()->json([
+                        'messages' => 'Opps! Something wrong.'
+                    ], 409);
+                }
+            }
+        } else {
+            abort(403);
+        }
     }
 
     /**
