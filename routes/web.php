@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 
 /*
@@ -21,8 +22,9 @@ Route::group(['middleware' => ['auth.logout_only']], function () {
     
     Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::post('/login', [AuthController::class, 'postLogin']);
-    Route::get('/logout', [AuthController::class, 'logout']);
 });
+
+Route::get('/logout', [AuthController::class, 'logout']);
 
 
 // Route Administrator
@@ -37,6 +39,12 @@ Route::prefix('administrator')->middleware(['auth.login_only'])->group(function(
     
     // Role
     Route::get('/roles', [RoleController::class, 'index']);
-    Route::post('/role/store', [RoleController::class, 'store']);
+    Route::get('/roles/{id}/changes', [RoleController::class, 'edit']);
+    Route::post('/roles/store', [RoleController::class, 'store']);
+    Route::post('/roles/{id}/update', [RoleController::class, 'update']);
+
+    // Role
+    Route::get('/permissions', [PermissionController::class, 'index']);
+    Route::post('/permissions/store', [PermissionController::class, 'store']);
 });
 

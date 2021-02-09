@@ -132,4 +132,12 @@ $(document).ready(function () {
 			}
 		})
 	}
+
+	storeModal();
+	function storeModal()
+	{
+		$('.add').click(() => {
+			$('#myModal form').attr('action', url + pathStoreUrl);
+		})
+	}
 });

@@ -32,8 +32,7 @@
                                 <div class="form-wrap w-150px">
                                     <select class="form-select form-select-sm" data-search="off" data-placeholder="Bulk Action">
                                         <option value="">Bulk Action</option>
-                                        <option value="delete">Delete Role</option>
-                                        <option value="block">Block Role</option>
+                                        <option value="delete">Delete</option>
                                     </select>
                                 </div>
                                 <div class="btn-wrap">
@@ -119,7 +118,7 @@
                             <div class="nk-tb-col tb-col-mb">
                                 <span><?php echo $item->name?></span>
                             </div>
-                            <div class="nk-tb-col tb-col-md">
+                            <div class="nk-tb-col tb-col-mb">
                                 <span><?php echo $item->guard_name?></span>
                             </div>
                             <div class="nk-tb-col nk-tb-col-tools">
@@ -131,6 +130,8 @@
                                                 <ul class="link-list-opt no-bdr">
                                                     <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Role</span></a></li>
                                                     <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Role</span></a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="/administrator/roles/<?php echo Hashids::encode($item->id)?>/changes"><em class="icon ni ni-shield-star"></em><span>Change Permission</span></a></li>
                                                 </ul>
                                             </div>
                                         </div>

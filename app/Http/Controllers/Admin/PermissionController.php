@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
-use Vinkla\Hashids\Facades\Hashids;
 
-class RoleController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +17,11 @@ class RoleController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Role Lists',
-            'mod'   => 'mod_role',
-            'collection' => Role::all()
+            'title' => 'Permission Lists',
+            'mod'   => 'mod_permission',
+            'collection' => Permission::all()
         ];
-        return view('admin.role.index', $data);
+        return view('admin.permission.index', $data);
     }
 
     /**
@@ -46,7 +44,8 @@ class RoleController extends Controller
     {
         if(\Request::ajax()){
             $validator = Validator::make($request->All(), [
-                'role'      => 'required',
+                'name'      => 'required',
+                'permission'=> 'required|array|min:1'
             ]);
 
             if($validator->fails()){
@@ -56,13 +55,15 @@ class RoleController extends Controller
             } else {
 
                 try {
-                    $role = Role::create([
-                        'name'      => $request->role,
-                    ]);
+                    foreach($request->permission as $permission){
+                        Permission::create([
+                            'name'  => $permission .'-'.$request->name
+                        ]);
+                    }
 
                     return response()->json([
-                        'messages'  => 'New role successfuly created',
-                        'redirect'  => '/administrator/roles'
+                        'messages'  => 'New permission successfuly created',
+                        'redirect'  => '/administrator/permissions'
                     ], 200);
 
                 } catch (Exeption $e){
@@ -95,14 +96,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $ids = Hashids::decode($id);
-        $data = [
-            'title'         => 'Change Permission',
-            'mod'           => 'mod_role',
-            'role'          => Role::findOrFail($ids[0]),
-            'permissions'   => Permission::all()->pluck('name'), 
-        ];
-        return view('admin.role.change', $data);
+        //
     }
 
     /**
@@ -114,29 +108,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(\Request::ajax()){
-
-            try {
-                $role = Role::findOrFail($id);
-
-                if ($request->has('permission')) {
-                    $role->syncPermissions($request->permission);
-                }
-
-                return response()->json([
-                    'messages'  => 'Permission successfuly changed',
-                    'redirect'  => '/administrator/roles'
-                ], 200);
-
-            } catch (Exeption $e){
-                return response()->json([
-                    'messages' => 'Opps! Something wrong.'
-                ], 409);
-            }
-            
-        } else {
-            abort(403);
-        }
+        //
     }
 
     /**
