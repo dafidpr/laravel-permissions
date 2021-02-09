@@ -29,10 +29,9 @@
                                 <label><input type="checkbox" id="uid" /> <b> Check All </b></label>
                             </div>
                             <div class="col-sm-3">
-                                @php $no = 1; @endphp
                                 @foreach ($permissions as $key => $row)
                                     <input type="checkbox" class="uid mr-1 d-inline-block" id="uid<?php echo $loop->iteration?>" name="permission[]" value="{{ $row }}" {{ $role->hasPermissionTo($row) ? "checked" : "" }} /><label for="uid<?php echo $loop->iteration?>" class="mb-0"> {{ $row }}</label> <br />
-                                    @if ($no++%4 == 0)
+                                    @if ($loop->iteration % 4 == 0)
                                         </div>
                                         <div class="col-md-3" style="margin-bottom:10px;">
                                     @endif
