@@ -5,7 +5,7 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title"><?php echo $title?></h3>
+                <h3 class="nk-block-title page-title">{{ $title }}</h3>
             </div><!-- .nk-block-head-content -->
             <div class="nk-block-head-content">
                 <div class="toggle-wrap nk-block-tools-toggle">
@@ -23,14 +23,19 @@
         <div class="card card-bordered card-stretch">
             <div class="card-inner">
                 <div class="preview-block">
-                    <form action="/administrator/roles/<?php echo $role->id?>/update" method="post" id="formSubmit">
+                    <form action="/administrator/roles/{{ $role->id }}/update" method="post" id="formSubmit">
                         <div class="row gy-4">
                             <div class="col-md-12 text-center">
-                                <label><input type="checkbox" id="uid" /> <b> Check All </b></label>
+                                <div class="form-check">
+                                    <label><input type="checkbox" id="uid" class="form-check-input" /> <b> Check All </b></label>
+                                </div>
                             </div>
                             <div class="col-sm-3">
                                 @foreach ($permissions as $key => $row)
-                                    <input type="checkbox" class="uid mr-1 d-inline-block" id="uid<?php echo $loop->iteration?>" name="permission[]" value="{{ $row }}" {{ $role->hasPermissionTo($row) ? "checked" : "" }} /><label for="uid<?php echo $loop->iteration?>" class="mb-0"> {{ $row }}</label> <br />
+                                    <div class="form-check d-inline-block">
+                                        <input type="checkbox" class="uid mr-1 form-check-input" id="uid{{ $loop->iteration }}" name="permission[]" value="{{ $row }}" {{ $role->hasPermissionTo($row) ? "checked" : "" }} /><label for="uid{{ $loop->iteration }}" class="mb-0"> {{ $row }}</label> 
+                                    </div>
+                                    <br />
                                     @if ($loop->iteration % 4 == 0)
                                         </div>
                                         <div class="col-md-3" style="margin-bottom:10px;">

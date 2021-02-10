@@ -31,8 +31,8 @@
                                     <em class="icon ni ni-user-alt"></em>
                                 </div>
                                 <div class="user-info d-none d-md-block">
-                                    <div class="user-status">Administrator</div>
-                                    <div class="user-name dropdown-indicator"><?php echo getInfoLogin()->name; ?></div>
+                                    <div class="user-status">{{ getInfoLogin()->roles[0]['name'] }}</div>
+                                    <div class="user-name dropdown-indicator">{{ getInfoLogin()->name }}</div>
                                 </div>
                             </div>
                         </a>
@@ -43,8 +43,8 @@
                                         <span>AB</span>
                                     </div>
                                     <div class="user-info">
-                                        <span class="lead-text"><?php echo getInfoLogin()->name; ?></span>
-                                        <span class="sub-text"><?php echo getInfoLogin()->email; ?></span>
+                                        <span class="lead-text">{{ getInfoLogin()->name }}</span>
+                                        <span class="sub-text">{{ getInfoLogin()->email }}</span>
                                     </div>
                                 </div>
                             </div>

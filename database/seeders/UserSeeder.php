@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'Dafid Prasetyo',
             'username' => 'dafidpr',
-            'email' => 'dafid@webmediadigital.com',
+            'email' => 'dafid@gmail.com',
             'password' => Hash::make('1234'),
             'block' => 'N',
             'phone_number' => '085736274637',
@@ -26,12 +26,12 @@ class UserSeeder extends Seeder
             'updated_by' => '1',
         ]);
 
-        $admin->assignRole('admin');
+        $admin->assignRole('Administrator');
 
-        $user = User::create([
+        $finance = User::create([
             'name' => 'Dimas Anggara',
             'username' => 'dimass',
-            'email' => 'dimas@webmediadigital.com',
+            'email' => 'dimas@gmail.com',
             'password' =>Hash::make('1234'),
             'block' => 'N',
             'phone_number' => '088473647364',
@@ -39,6 +39,6 @@ class UserSeeder extends Seeder
             'updated_by' => '1',
         ]);
 
-        $user->assignRole('user');
+        $finance->assignRole('Finance');
     }
 }

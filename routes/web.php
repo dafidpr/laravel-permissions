@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 
 /*
@@ -46,5 +47,10 @@ Route::prefix('administrator')->middleware(['auth.login_only'])->group(function(
     // Role
     Route::get('/permissions', [PermissionController::class, 'index']);
     Route::post('/permissions/store', [PermissionController::class, 'store']);
+
+    // Menu Manager
+    Route::get('/menus', [MenuController::class, 'index']);
+    Route::get('/menus/create', [MenuController::class, 'create']);
+    Route::post('/menus/store', [MenuController::class, 'store']);
 });
 

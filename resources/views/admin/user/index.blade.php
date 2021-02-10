@@ -5,9 +5,9 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title"><?php echo $title?></h3>
+                <h3 class="nk-block-title page-title">{{ $title }}</h3>
                 <div class="nk-block-des text-soft">
-                    <p>You have total <?php echo $collection->count()?> users.</p>
+                    <p>You have total {{ $collection->count() }} users.</p>
                 </div>
             </div><!-- .nk-block-head-content -->
             <div class="nk-block-head-content">
@@ -116,34 +116,34 @@
                         <div class="nk-tb-item">
                             <div class="nk-tb-col nk-tb-col-check">
                                 <div class="custom-control custom-control-sm custom-checkbox notext">
-                                    <input type="checkbox" class="custom-control-input uid" id="uid<?= $loop->iteration ?>">
-                                    <label class="custom-control-label" for="uid<?= $loop->iteration ?>"></label>
+                                    <input type="checkbox" class="custom-control-input uid" id="uid{{ $loop->iteration  }}">
+                                    <label class="custom-control-label" for="uid{{ $loop->iteration  }}"></label>
                                 </div>
                             </div>
                             <div class="nk-tb-col">
-                                <a href="html/user-details-regular.html">
+                                <a href="#">
                                     <div class="user-card">
                                         <div class="user-avatar bg-primary">
                                             <span>AB</span>
                                         </div>
                                         <div class="user-info">
-                                            <span class="tb-lead"><?php echo $item->name?> <span class="dot dot-success d-md-none ml-1"></span></span>
-                                            <span><?php echo $item->username?></span>
+                                            <span class="tb-lead">{{ $item->name }}</span>
+                                            <span>{{ $item->username }}</span>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                             <div class="nk-tb-col tb-col-mb">
-                                <span><?php echo $item->email?></span>
+                                <span>{{ $item->email }}</span>
                             </div>
                             <div class="nk-tb-col tb-col-md">
-                                <span><?php echo $item->phone_number?></span>
+                                <span>{{ $item->phone_number }}</span>
                             </div>
                             <div class="nk-tb-col tb-col-lg">
-                                <span><em class="icon ni ni-shield-star"></em> <?php echo $item->roles[0]['name']?></span>
+                                <span><em class="icon ni ni-shield-star"></em> {{ $item->roles[0]['name'] }}</span>
                             </div>
                             <div class="nk-tb-col tb-col-lg">
-                                <span><?php echo $item->last_login?></span>
+                                <span>{{ $item->last_login }}</span>
                             </div>
                             <div class="nk-tb-col tb-col-md">
                                 @if ($item->block == 'N')

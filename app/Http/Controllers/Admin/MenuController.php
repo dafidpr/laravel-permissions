@@ -5,13 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Str;
+use App\Models\Menu;
 use Carbon\Carbon;
-use App\Models\User;
 
-class UserController extends Controller
+class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,11 +18,12 @@ class UserController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'User Lists',
-            'mod'   => 'mod_user',
-            'collection' => User::with('roles')->get()
+            'title'         => 'Menu Lists',
+            'mod'           => 'mod_menu',
+            'backend_menu'  => Menu::where('group', 'Backend')->orderBy('position', 'ASC')->get(),
+            'frontend_menu' => Menu::where('group', 'Frontend')->orderBy('position', 'ASC')->get()
         ];
-        return view('admin.user.index', $data);
+        return view('admin.menu.index', $data);
     }
 
     /**
@@ -36,11 +34,11 @@ class UserController extends Controller
     public function create()
     {
         $data = [
-            'title' => 'Create User',
-            'mod'   => 'mod_user',
-            'roles' => Role::all()
+            'title'         => 'Create Menu',
+            'mod'           => 'mod_menu',
+            'parent'        => Menu::where('parent', 0)->get()
         ];
-        return view('admin.user.form', $data);
+        return view('admin.menu.form', $data);
     }
 
     /**
@@ -53,13 +51,12 @@ class UserController extends Controller
     {
         if(\Request::ajax()){
             $validator = Validator::make($request->All(), [
-                'name'      => 'required',
-                'username'  => 'required',
-                'email'     => 'required|email',
-                'password'  => 'required',
-                'block'     => 'required',
-                'picture'   => 'image|mimes:jpg,jpeg,png,gif',
-                'phone'     => 'required'
+                'title'      => 'required',
+                'url'        => 'required',
+                'position'   => 'required',
+                'target'     => 'required',
+                'group'      => 'required',
+                'parent'     => 'required',
             ]);
 
             if($validator->fails()){
@@ -69,29 +66,21 @@ class UserController extends Controller
             } else {
 
                 try {
-                    $path = 'admin/uploads/img/profile/';
-                    $fileName = 'user_pic.png';
-                    if($request->file('picture') != null){
-
-                        $fileName = Str::random(35).'.'.$request->file('picture')->extension();
-                        $request->file('picture')->move(public_path($path), $fileName);
-                    }
-                    $user = User::create([
-                        'name'      => $request->name,
-                        'username'  => $request->username,
-                        'email'     => $request->email,
-                        'password'  => Hash::make($request->password),
-                        'block'     => $request->block,
-                        'picture'   => $fileName,
-                        'phone'     => $request->phone,
-                        'created_by'=> \getInfoLogin()->id,
-                        'updated_by'=> \getInfoLogin()->id
+                    Menu::create([
+                        'parent'    => $request->parent,
+                        'group'     => $request->group,
+                        'title'     => $request->title,
+                        'url'       => $request->url,
+                        'icon'      => $request->icon,
+                        'target'    => $request->target,
+                        'position'  => $request->position,
+                        'created_by'=> getInfoLogin()->id,
+                        'created_at'=> Carbon::now()
                     ]);
-                    $user->assignRole($request->role);
 
                     return response()->json([
-                        'messages'  => 'New user successfuly created',
-                        'redirect'  => '/administrator/users'
+                        'messages'  => 'New menu successfuly created',
+                        'redirect'  => '/administrator/menus'
                     ], 200);
 
                 } catch (Exeption $e){

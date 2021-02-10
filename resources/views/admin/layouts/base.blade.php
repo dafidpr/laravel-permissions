@@ -11,6 +11,7 @@
     <title><?php echo $title?> | Laravel Permission App</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('admin/assets/assets/css/dashlite.css?ver=2.2.0') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/assets/css/style.css') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('admin/assets/assets/css/theme.css?ver=2.2.0') }}">
     <script>
         var url = '{{ url("") }}';

@@ -5,7 +5,7 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title"><?php echo $title?></h3>
+                <h3 class="nk-block-title page-title">{{ $title }}</h3>
             </div><!-- .nk-block-head-content -->
             <div class="nk-block-head-content">
                 <div class="toggle-wrap nk-block-tools-toggle">
@@ -76,7 +76,7 @@
                                         <select class="form-select form-control form-control-lg" data-placeholder="Select Roles" data-search="on" name="role">
                                             {{-- <option value="" selected ></option> --}}
                                             @foreach ($roles as $item)
-                                                <option value="<?php echo $item->id?>"><?php echo $item->name?></option>
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                         <i class="text-danger small d-none" id="roleErr"></i>

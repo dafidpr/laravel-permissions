@@ -30,7 +30,7 @@
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                                <span class="nk-menu-text">User Manage</span>
+                                <span class="nk-menu-text">User Manager</span>
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
@@ -41,20 +41,12 @@
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <li class="nk-menu-item">
+                            <a href="/administrator/menus" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-grid-alt"></em></span>
-                                <span class="nk-menu-text">Menu Manage</span>
+                                <span class="nk-menu-text">Menu Manager </span>
                             </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="/administrator/menus" class="nk-menu-link"><span class="nk-menu-text">Menu Manager</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="/administrator/submenus" class="nk-menu-link"><span class="nk-menu-text">Sub Menu Manager</span></a>
-                                </li>
-                            </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->
+                        </li>
                         <li class="nk-menu-item">
                             <a href="/administrator/permissions" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-security"></em></span>

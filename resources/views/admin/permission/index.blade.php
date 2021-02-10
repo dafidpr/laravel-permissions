@@ -5,9 +5,9 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title"><?php echo $title?></h3>
+                <h3 class="nk-block-title page-title">{{ $title }}</h3>
                 <div class="nk-block-des text-soft">
-                    <p>You have total <?php echo $collection->count()?> permission.</p>
+                    <p>You have total {{ $collection->count() }} permission.</p>
                 </div>
             </div><!-- .nk-block-head-content -->
             <div class="nk-block-head-content">
@@ -111,15 +111,15 @@
                         <div class="nk-tb-item">
                             <div class="nk-tb-col nk-tb-col-check">
                                 <div class="custom-control custom-control-sm custom-checkbox notext">
-                                    <input type="checkbox" class="custom-control-input uid" id="uid<?= $loop->iteration ?>">
-                                    <label class="custom-control-label" for="uid<?= $loop->iteration ?>"></label>
+                                    <input type="checkbox" class="custom-control-input uid" id="uid{{ $loop->iteration }}">
+                                    <label class="custom-control-label" for="uid{{ $loop->iteration }}"></label>
                                 </div>
                             </div>
                             <div class="nk-tb-col tb-col-mb">
-                                <span><?php echo $item->name?></span>
+                                <span>{{ $item->name }}</span>
                             </div>
                             <div class="nk-tb-col tb-col-mb">
-                                <span><?php echo $item->guard_name?></span>
+                                <span>{{ $item->guard_name }}</span>
                             </div>
                             <div class="nk-tb-col nk-tb-col-tools">
                                 <ul class="nk-tb-actions gx-1">
