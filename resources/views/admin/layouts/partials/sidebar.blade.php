@@ -15,44 +15,36 @@
             <div class="nk-sidebar-content">
                 <div class="nk-sidebar-menu">
                     <ul class="nk-menu">
-                        <li class="nk-menu-heading">
-                            <h6 class="overline-title text-primary-alt">Dashboards</h6>
-                        </li><!-- .nk-menu-item -->
-                        <li class="nk-menu-item">
-                            <a href="html/index-analytics.html" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-growth"></em></span>
-                                <span class="nk-menu-text">Analytics Dashboard</span>
-                            </a>
-                        </li><!-- .nk-menu-item -->
-                        <li class="nk-menu-heading">
-                            <h6 class="overline-title text-primary-alt">Applications</h6>
-                        </li><!-- .nk-menu-heading -->
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                                <span class="nk-menu-text">User Manager</span>
-                            </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="/administrator/users" class="nk-menu-link"><span class="nk-menu-text">Users</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="/administrator/roles" class="nk-menu-link"><span class="nk-menu-text">Role</span></a>
-                                </li>
-                            </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->
-                        <li class="nk-menu-item">
-                            <a href="/administrator/menus" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-grid-alt"></em></span>
-                                <span class="nk-menu-text">Menu Manager </span>
-                            </a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="/administrator/permissions" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-security"></em></span>
-                                <span class="nk-menu-text">Permissions </span>
-                            </a>
-                        </li><!-- .nk-menu-item -->
+                        @foreach(request()->menus as $menuGroup)
+                            <li class="nk-menu-heading">
+                                <h6 class="overline-title text-primary-alt">{{ $menuGroup->name }}</h6>
+                            </li><!-- .nk-menu-item -->
+                            @foreach ($menuGroup->menu as $menu)
+                                @if (count($menu->submenu) > 0)
+                                    <li class="nk-menu-item has-sub">
+                                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                                            <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
+                                            <span class="nk-menu-text">{{ $menu->title }}</span>
+                                        </a>
+                                        <ul class="nk-menu-sub">
+                                            @foreach ($menu->submenu as $submenu)
+                                                <li class="nk-menu-item">
+                                                    <a href="{{ $submenu->url }}" class="nk-menu-link"><span class="nk-menu-text">{{ $submenu->title }}</span></a>
+                                                </li>
+                                            @endforeach
+                                        </ul><!-- .nk-menu-sub -->
+                                    </li><!-- .nk-menu-item -->
+                                @else
+                                    <li class="nk-menu-item">
+                                        <a href="{{ $menu->url }}" class="nk-menu-link">
+                                            <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
+                                            <span class="nk-menu-text">{{ $menu->title }}</span>
+                                        </a>
+                                    </li>
+                                @endif
+                                {{-- {{ $menu->submenu }} --}}
+                            @endforeach
+                        @endforeach
                     </ul><!-- .nk-menu -->
                 </div><!-- .nk-sidebar-menu -->
                 <div class="nk-sidebar-footer">

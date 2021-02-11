@@ -65,7 +65,7 @@
                                                         <li class="toggle-close">
                                                             <a href="#" class="btn btn-icon btn-trigger toggle" data-target="cardTools"><em class="icon ni ni-arrow-left"></em></a>
                                                         </li><!-- li -->
-                               
+
                                                         <li>
                                                             <div class="dropdown">
                                                                 <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-toggle="dropdown">
@@ -120,7 +120,7 @@
                                     <div class="nk-tb-col nk-tb-col-tools text-right"></div>
                                 </div><!-- .nk-tb-item -->
                                 @foreach ($backend_menu as $backend)
-                                    
+
                                 <div class="nk-tb-item">
                                     <div class="nk-tb-col nk-tb-col-check">
                                         <div class="custom-control custom-control-sm custom-checkbox notext">
@@ -128,7 +128,7 @@
                                             <label class="custom-control-label" for="uid{{ $loop->iteration }}"></label>
                                         </div>
                                     </div>
-                                    <div class="nk-tb-col">  
+                                    <div class="nk-tb-col">
                                         <div class="user-card">
                                             <div class="user-info">
                                                 <span class="tb-lead">{{ $backend->title }}</span>
@@ -146,7 +146,7 @@
                                         <span>{{ $backend->target }}</span>
                                     </div>
                                     <div class="nk-tb-col tb-col-md">
-                                        <span>{{ $backend->group }}</span>
+                                        <span>{{ $backend->type }}</span>
                                     </div>
                                     <div class="nk-tb-col nk-tb-col-tools">
                                         <ul class="nk-tb-actions gx-1">
@@ -192,7 +192,7 @@
                     </div>
                     <div class="tab-pane" id="tabFrontend">
                         @if ($frontend_menu->count() == 0)
-                            <p class="text-center mt-5 mb-5">No Data</p> 
+                            <p class="text-center mt-5 mb-5">No Data</p>
                         @else
                         <div class="card-inner position-relative card-tools-toggle">
                             <div class="card-title-group">
@@ -224,7 +224,7 @@
                                                         <li class="toggle-close">
                                                             <a href="#" class="btn btn-icon btn-trigger toggle" data-target="cardTools"><em class="icon ni ni-arrow-left"></em></a>
                                                         </li><!-- li -->
-                               
+
                                                         <li>
                                                             <div class="dropdown">
                                                                 <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-toggle="dropdown">
@@ -279,7 +279,7 @@
                                     <div class="nk-tb-col nk-tb-col-tools text-right"></div>
                                 </div><!-- .nk-tb-item -->
                                 @foreach ($frontend_menu as $frontend)
-                                    
+
                                 <div class="nk-tb-item">
                                     <div class="nk-tb-col nk-tb-col-check">
                                         <div class="custom-control custom-control-sm custom-checkbox notext">
@@ -293,7 +293,7 @@
                                                 <span class="tb-lead">{{ $frontend->title }}</span>
                                                 <span>{{ $frontend->url }}</span>
                                             </div>
-                                        </div>           
+                                        </div>
                                     </div>
                                     <div class="nk-tb-col tb-col-mb">
                                         <span><em class="{{ $frontend->icon }}"></em> {{ $frontend->icon }}</span>

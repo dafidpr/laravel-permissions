@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Menu;
+use App\Models\Submenu;
 use Carbon\Carbon;
 
-class MenuSeeder extends Seeder
+class SubmenuSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,13 +15,11 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
-        Menu::insert([
+        Submenu::insert([
             [
-                'menu_group_id' => 1,
-                'type'     => 'Backend',
-                'title'     => 'Analytics Dashboard',
-                'url'       => '/administrator/dashboard',
-                'icon'      => 'icon ni ni-growth',
+                'menu_id'   => 2,
+                'title'     => 'Users',
+                'url'       => '/administrator/users',
                 'target'    => 'none',
                 'position'  => '1',
                 'created_by'=> '1',
@@ -30,11 +28,9 @@ class MenuSeeder extends Seeder
                 'updated_at'=> Carbon::now()
             ],
             [
-                'menu_group_id' => 2,
-                'type'     => 'Backend',
-                'title'     => 'User Manager',
-                'url'       => '#',
-                'icon'      => 'icon ni ni-users',
+                'menu_id'   => 2,
+                'title'     => 'Roles',
+                'url'       => '/administrator/roles',
                 'target'    => 'none',
                 'position'  => '2',
                 'created_by'=> '1',
@@ -43,31 +39,38 @@ class MenuSeeder extends Seeder
                 'updated_at'=> Carbon::now()
             ],
             [
-                'menu_group_id' => 2,
-                'type'     => 'Backend',
-                'title'     => 'Menu Manager',
-                'url'       => '#',
-                'icon'      => 'icon ni ni-grid-alt',
+                'menu_id'   => 3,
+                'title'     => 'Menu',
+                'url'       => '/administrator/menus',
                 'target'    => 'none',
-                'position'  => '5',
+                'position'  => '1',
                 'created_by'=> '1',
                 'updated_by'=> '1',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
             ],
             [
-                'menu_group_id' => 2,
-                'type'     => 'Backend',
-                'title'     => 'Permissions',
-                'url'       => '/administrator/permissions',
-                'icon'      => 'icon ni ni-security',
+                'menu_id'   => 3,
+                'title'     => 'Sub Menu',
+                'url'       => '/administrator/submenus',
                 'target'    => 'none',
-                'position'  => '6',
+                'position'  => '2',
                 'created_by'=> '1',
                 'updated_by'=> '1',
                 'created_at'=> Carbon::now(),
                 'updated_at'=> Carbon::now()
-            ]
+            ],
+            [
+                'menu_id'   => 3,
+                'title'     => 'Menu Groups',
+                'url'       => '/administrator/menu_groups',
+                'target'    => 'none',
+                'position'  => '3',
+                'created_by'=> '1',
+                'updated_by'=> '1',
+                'created_at'=> Carbon::now(),
+                'updated_at'=> Carbon::now()
+            ],
         ]);
     }
 }

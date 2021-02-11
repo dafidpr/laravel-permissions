@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 */
 // Route Auth
 Route::group(['middleware' => ['auth.logout_only']], function () {
-    
+
     Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::post('/login', [AuthController::class, 'postLogin']);
 });
@@ -29,7 +29,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 
 // Route Administrator
-Route::prefix('administrator')->middleware(['auth.login_only'])->group(function(){
+Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->group(function(){
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
@@ -37,7 +37,7 @@ Route::prefix('administrator')->middleware(['auth.login_only'])->group(function(
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/create', [UserController::class, 'create']);
     Route::post('/users/store', [UserController::class, 'store']);
-    
+
     // Role
     Route::get('/roles', [RoleController::class, 'index']);
     Route::get('/roles/{id}/changes', [RoleController::class, 'edit']);

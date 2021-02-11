@@ -9,7 +9,12 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 
-        'parent','group','title','url','icon','target', 'position','created_by','updated_by'
+    protected $fillable = [
+        'menu_group_id', 'type','title','url','icon','target', 'position','created_by','updated_by'
     ];
+
+    public function submenu()
+    {
+        return $this->hasMany(Submenu::class)->orderBy('position', 'ASC');
+    }
 }

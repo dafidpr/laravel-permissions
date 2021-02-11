@@ -96,12 +96,21 @@ class RoleController extends Controller
     public function edit($id)
     {
         $ids = Hashids::decode($id);
+
+        $remappedPermission = [];
+        $permissions = Permission::all()->pluck('name');
+
+        foreach ($permissions as $permission) {
+            $remappedPermission[explode('-', $permission)[1]][] = $permission;
+        }
+
         $data = [
             'title'         => 'Change Permission',
             'mod'           => 'mod_role',
             'role'          => Role::findOrFail($ids[0]),
-            'permissions'   => Permission::all()->pluck('name'), 
+            'permissions'   => $remappedPermission,
         ];
+
         return view('admin.role.change', $data);
     }
 
@@ -133,7 +142,7 @@ class RoleController extends Controller
                     'messages' => 'Opps! Something wrong.'
                 ], 409);
             }
-            
+
         } else {
             abort(403);
         }

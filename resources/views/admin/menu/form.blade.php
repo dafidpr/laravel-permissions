@@ -46,7 +46,7 @@
                                     <i class="text-danger small d-none" id="urlErr"></i>
                                 </div>
                             </div>
-                        
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-label" for="default-03">Icon</label>
@@ -78,27 +78,26 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="form-label">Group <span class="text-danger">*</span></label>
+                                    <label class="form-label">Menu Type <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <select class="form-select form-control form-control-lg" name="group">
+                                        <select class="form-select form-control form-control-lg" name="type">
                                             <option value="Backend">Back End</option>
                                             <option value="Frontend">Front End</option>
                                         </select>
-                                        <i class="text-danger small d-none" id="groupErr"></i>
+                                        <i class="text-danger small d-none" id="typeErr"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label class="form-label">Parent <span class="text-danger">*</span></label>
+                                    <label class="form-label">Menu Groups <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <select class="form-select form-control form-control-lg" data-search="on" name="parent">
-                                            <option value="0">None</option> 
-                                            @foreach ($parent as $item)
-                                                <option value="{{ $item->id }}">{{ $item->title }}</option> 
+                                        <select class="form-select form-control form-control-lg" data-search="on" name="group">
+                                            @foreach ($menu_groups as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
-                                        <i class="text-danger small d-none" id="parentErr"></i>
+                                        <i class="text-danger small d-none" id="groupErr"></i>
                                     </div>
                                 </div>
                             </div>

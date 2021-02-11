@@ -30,19 +30,19 @@
                                     <label><input type="checkbox" id="uid" class="form-check-input" /> <b> Check All </b></label>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
-                                @foreach ($permissions as $key => $row)
-                                    <div class="form-check d-inline-block">
-                                        <input type="checkbox" class="uid mr-1 form-check-input" id="uid{{ $loop->iteration }}" name="permission[]" value="{{ $row }}" {{ $role->hasPermissionTo($row) ? "checked" : "" }} /><label for="uid{{ $loop->iteration }}" class="mb-0"> {{ $row }}</label> 
-                                    </div>
-                                    <br />
-                                    @if ($loop->iteration % 4 == 0)
+                            <div class="col">
+                                <div class="row">
+                                    @foreach ($permissions as $idx => $permission)
+                                        <div class="col-md-3" style="margin-bottom: 10px">
+                                            @foreach($permission as $singlePermission)
+                                                <div class="form-check d-block">
+                                                    <input type="checkbox" class="uid mr-1 form-check-input" id="uid-{{$idx . '-' . $loop->iteration }}" name="permission[]" value="{{ $singlePermission }}" {{ $role->hasPermissionTo($singlePermission) ? "checked" : "" }} /><label for="uid-{{ $idx . '-' . $loop->iteration }}" class="mb-0"> {{ $singlePermission }}</label>
+                                                </div>
+                                            @endforeach
                                         </div>
-                                        <div class="col-md-3" style="margin-bottom:10px;">
-                                    @endif
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
-                            
                         </div>
                         <hr class="preview-hr">
                         <button type="submit" class="btn btn-primary"><em class="icon ni ni-send"></em><span> Save changes </span> </button>

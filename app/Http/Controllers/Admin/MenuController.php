@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Menu;
+use App\Models\MenuGroup;
 use Carbon\Carbon;
 
 class MenuController extends Controller
@@ -20,8 +21,8 @@ class MenuController extends Controller
         $data = [
             'title'         => 'Menu Lists',
             'mod'           => 'mod_menu',
-            'backend_menu'  => Menu::where('group', 'Backend')->orderBy('position', 'ASC')->get(),
-            'frontend_menu' => Menu::where('group', 'Frontend')->orderBy('position', 'ASC')->get()
+            'backend_menu'  => Menu::where('type', 'Backend')->orderBy('position', 'ASC')->get(),
+            'frontend_menu' => Menu::where('type', 'Frontend')->orderBy('position', 'ASC')->get()
         ];
         return view('admin.menu.index', $data);
     }
@@ -36,7 +37,7 @@ class MenuController extends Controller
         $data = [
             'title'         => 'Create Menu',
             'mod'           => 'mod_menu',
-            'parent'        => Menu::where('parent', 0)->get()
+            'menu_groups'   => MenuGroup::all()
         ];
         return view('admin.menu.form', $data);
     }
@@ -55,8 +56,8 @@ class MenuController extends Controller
                 'url'        => 'required',
                 'position'   => 'required',
                 'target'     => 'required',
+                'type'       => 'required',
                 'group'      => 'required',
-                'parent'     => 'required',
             ]);
 
             if($validator->fails()){
@@ -67,8 +68,8 @@ class MenuController extends Controller
 
                 try {
                     Menu::create([
-                        'parent'    => $request->parent,
-                        'group'     => $request->group,
+                        'menu_group_id' => $request->group,
+                        'type'     => $request->type,
                         'title'     => $request->title,
                         'url'       => $request->url,
                         'icon'      => $request->icon,

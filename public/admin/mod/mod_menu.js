@@ -1,26 +1,26 @@
 var displayErrors = [
     {
-        display: '#titleErr',
-        inputName: 'title'
+        display: "#titleErr",
+        inputName: "title",
     },
     {
-        display: '#urlErr',
-        inputName: 'url'
+        display: "#urlErr",
+        inputName: "url",
     },
     {
-        display: '#positionErr',
-        inputName: 'position'
+        display: "#positionErr",
+        inputName: "position",
     },
     {
-        display: '#targetErr',
-        inputName: 'target'
+        display: "#targetErr",
+        inputName: "target",
     },
     {
-        display: '#groupErr',
-        inputName: 'group'
+        display: "#typeErr",
+        inputName: "type",
     },
     {
-        display: '#parentErr',
-        inputName: 'parent'
-    }
+        display: "#groupErr",
+        inputName: "group",
+    },
 ];
