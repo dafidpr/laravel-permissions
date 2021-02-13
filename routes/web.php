@@ -39,6 +39,8 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/create', [UserController::class, 'create']);
     Route::post('/users/store', [UserController::class, 'store']);
+    Route::get('/users/change_password', [UserController::class, 'change_password']);
+    Route::post('/users/change_password/update_password', [UserController::class, 'update_password']);
 
     // Role
     Route::get('/roles', [RoleController::class, 'index']);

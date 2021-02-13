@@ -52,7 +52,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if(\Request::ajax()){
-            $validator = Validator::make($request->All(), [
+            $validator = Validator::make($request->all(), [
                 'name'      => 'required',
                 'username'  => 'required',
                 'email'     => 'required|email',
@@ -148,5 +148,61 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function change_password()
+    {
+
+        $data = [
+            'title' => 'Change Password',
+            'mod'   => 'mod_user',
+        ];
+        return view('admin.user.password', $data);
+    }
+
+    public function update_password(Request $request)
+    {
+        $user = getInfoLogin();
+        if(\Request::ajax()){
+            $validator = Validator::make($request->all(), [
+                'current_password' => ['required', function($attribute, $value, $fail) use ($user){
+                    if (!\Hash::check($value, $user->password)) {
+                        return $fail(__('The current password is incorrect.'));
+                    }
+                }],
+                'new_password' => 'required|same:confirm_password',
+                'confirm_password' => 'required|same:new_password',
+            ],
+            [
+                'current_password.required' => 'Current password cannot be empty',
+                'new_password.same'    => 'Password is not the same as confirmation password.',
+                'new_password.required' => 'New password cannot be empty',
+                'confirm_password.same' => 'Confirm password is not the same as new password',
+                'confirm_password.required'=> 'Confirm password cannot be empty'
+            ]);
+
+            if($validator->fails()){
+                return response()->json([
+                    'messages' => $validator->messages()
+                ], 400);
+            } else {
+
+                try {
+                    User::where('id', $user->id)->update(['password' => Hash::make($request->new_password)]);
+
+                    return response()->json([
+                        'messages'  => 'Password successfuly updated',
+                        'redirect'  => '/administrator/users/change_password'
+                    ], 200);
+
+                } catch (Exeption $e){
+                    return response()->json([
+                        'messages' => 'Opps! Something wrong.'
+                    ], 409);
+                }
+            }
+        } else {
+            abort(403);
+        }
     }
 }

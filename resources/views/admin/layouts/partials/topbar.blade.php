@@ -52,7 +52,7 @@
                                 <ul class="link-list">
                                     <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
                                     <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
-                                    <li><a href="html/user-profile-activity.html"><em class="icon ni ni-shield-star"></em><span>Change Password</span></a></li>
+                                    <li><a href="/administrator/users/change_password"><em class="icon ni ni-shield-star"></em><span>Change Password</span></a></li>
                                     <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
                                 </ul>
                             </div>

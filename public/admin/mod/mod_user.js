@@ -30,5 +30,17 @@ var displayErrors = [
     {
         display: '#picErr',
         inputName: 'picture'
-    }
+    },
+    {
+        display: '#currentPassErr',
+        inputName: 'current_password'
+    },
+    {
+        display: '#newPassErr',
+        inputName: 'new_password'
+    },
+    {
+        display: '#confirmPassErr',
+        inputName: 'confirm_password'
+    },
 ];
