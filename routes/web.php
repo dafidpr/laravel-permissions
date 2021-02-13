@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\SubmenuController;
+use App\Http\Controllers\Admin\MenuGroupController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 
 /*
@@ -48,9 +50,18 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
     Route::get('/permissions', [PermissionController::class, 'index']);
     Route::post('/permissions/store', [PermissionController::class, 'store']);
 
-    // Menu Manager
+    // Menu
     Route::get('/menus', [MenuController::class, 'index']);
     Route::get('/menus/create', [MenuController::class, 'create']);
     Route::post('/menus/store', [MenuController::class, 'store']);
+
+    // Sub menu
+    Route::get('/submenus', [SubmenuController::class, 'index']);
+    Route::get('/submenus/create', [SubmenuController::class, 'create']);
+    Route::post('/submenus/store', [SubmenuController::class, 'store']);
+
+    // Menu Group
+    Route::get('/menu_groups', [MenuGroupController::class, 'index']);
+    Route::post('/menu_groups/store', [MenuGroupController::class, 'store']);
 });
 

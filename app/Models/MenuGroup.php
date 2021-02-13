@@ -9,6 +9,8 @@ class MenuGroup extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function menu()
     {
         return $this->hasMany(Menu::class)->orderBy('position', 'ASC');

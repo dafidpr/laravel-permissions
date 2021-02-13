@@ -12,7 +12,7 @@
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            <li><a href="/administrator/menus" class="btn btn-light bg-white"><em class="icon ni ni-arrow-left"></em><span> Back</span></a></li>
+                            <li><a href="/administrator/submenus" class="btn btn-light bg-white"><em class="icon ni ni-arrow-left"></em><span> Back</span></a></li>
                         </ul>
                     </div>
                 </div><!-- .toggle-wrap -->
@@ -23,7 +23,7 @@
         <div class="card card-bordered card-stretch">
             <div class="card-inner">
                 <div class="preview-block">
-                    <form action="/administrator/menus/store" method="post" id="formSubmit">
+                    <form action="/administrator/submenus/store" method="post" id="formSubmit">
                         <div class="row gy-4">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -44,15 +44,6 @@
                                           </div>
                                     </div>
                                     <i class="text-danger small d-none" id="urlErr"></i>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="default-03">Icon</label>
-                                    <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="icon" name="icon" placeholder="Ex: icon ni ni-eye" autocomplete="off">
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -76,26 +67,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="form-label">Menu Type <span class="text-danger">*</span></label>
-                                    <div class="form-control-wrap">
-                                        <select class="form-select form-control form-control-lg" name="type">
-                                            <option value="Backend">Back End</option>
-                                            <option value="Frontend">Front End</option>
-                                        </select>
-                                        <i class="text-danger small d-none" id="typeErr"></i>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label class="form-label">Menu Groups <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
                                         <select class="form-select form-control form-control-lg" data-search="on" name="group">
-                                            <option value="0">None</option>
                                             @foreach ($menu_groups as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->title }}</option>
                                             @endforeach
                                         </select>
                                         <i class="text-danger small d-none" id="groupErr"></i>

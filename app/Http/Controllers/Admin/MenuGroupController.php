@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
-use Vinkla\Hashids\Facades\Hashids;
+use App\Models\MenuGroup;
 
-class RoleController extends Controller
+class MenuGroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +17,11 @@ class RoleController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Role Lists',
-            'mod'   => 'mod_role',
-            'collection' => Role::all()
+            'title' => 'Menu Group Lists',
+            'mod'   => 'mod_menu_group',
+            'collection' => MenuGroup::all()
         ];
-        return view('admin.role.index', $data);
+        return view('admin.menu_group.index', $data);
     }
 
     /**
@@ -46,7 +44,7 @@ class RoleController extends Controller
     {
         if(\Request::ajax()){
             $validator = Validator::make($request->All(), [
-                'role'      => 'required',
+                'name'      => 'required',
             ]);
 
             if($validator->fails()){
@@ -56,13 +54,13 @@ class RoleController extends Controller
             } else {
 
                 try {
-                    Role::create([
-                        'name'      => $request->role,
+                    MenuGroup::create([
+                        'name'      => $request->name,
                     ]);
 
                     return response()->json([
-                        'messages'  => 'New role successfuly created',
-                        'redirect'  => '/administrator/roles'
+                        'messages'  => 'New menu group successfuly created',
+                        'redirect'  => '/administrator/menu_groups'
                     ], 200);
 
                 } catch (Exeption $e){
@@ -95,23 +93,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $ids = Hashids::decode($id);
-
-        $remappedPermission = [];
-        $permissions = Permission::all()->pluck('name');
-
-        foreach ($permissions as $permission) {
-            $remappedPermission[explode('-', $permission)[1]][] = $permission;
-        }
-
-        $data = [
-            'title'         => 'Change Permission',
-            'mod'           => 'mod_role',
-            'role'          => Role::findOrFail($ids[0]),
-            'permissions'   => $remappedPermission,
-        ];
-
-        return view('admin.role.change', $data);
+        //
     }
 
     /**
@@ -123,29 +105,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(\Request::ajax()){
-
-            try {
-                $role = Role::findOrFail($id);
-
-                if ($request->has('permission')) {
-                    $role->syncPermissions($request->permission);
-                }
-
-                return response()->json([
-                    'messages'  => 'Permission successfuly changed',
-                    'redirect'  => '/administrator/roles'
-                ], 200);
-
-            } catch (Exeption $e){
-                return response()->json([
-                    'messages' => 'Opps! Something wrong.'
-                ], 409);
-            }
-
-        } else {
-            abort(403);
-        }
+        //
     }
 
     /**
