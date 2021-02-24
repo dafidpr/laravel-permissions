@@ -150,7 +150,7 @@ class UserController extends Controller
         //
     }
 
-    public function change_password()
+    public function changePassword()
     {
 
         $data = [
@@ -160,7 +160,7 @@ class UserController extends Controller
         return view('admin.user.password', $data);
     }
 
-    public function update_password(Request $request)
+    public function updatePassword(Request $request)
     {
         $user = getInfoLogin();
         if(\Request::ajax()){

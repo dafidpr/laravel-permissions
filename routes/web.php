@@ -36,35 +36,35 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('can:read-dashboard');
 
     // User
-    Route::get('/users', [UserController::class, 'index']);
-    Route::get('/users/create', [UserController::class, 'create']);
-    Route::post('/users/store', [UserController::class, 'store']);
-    Route::get('/users/change_password', [UserController::class, 'change_password']);
-    Route::post('/users/change_password/update_password', [UserController::class, 'update_password']);
+    Route::get('/users', [UserController::class, 'index'])->middleware('can:read-users');
+    Route::get('/users/create', [UserController::class, 'create'])->middleware('can:create-users');
+    Route::post('/users/store', [UserController::class, 'store'])->middleware('can:create-users');
+    Route::get('/users/change_password', [UserController::class, 'changePassword']);
+    Route::post('/users/change_password/update_password', [UserController::class, 'updatePassword']);
 
     // Role
-    Route::get('/roles', [RoleController::class, 'index']);
-    Route::get('/roles/{id}/changes', [RoleController::class, 'edit']);
-    Route::post('/roles/store', [RoleController::class, 'store']);
-    Route::post('/roles/{id}/update', [RoleController::class, 'update']);
+    Route::get('/roles', [RoleController::class, 'index'])->middleware('can:read-roles');
+    Route::get('/roles/{id}/changes', [RoleController::class, 'edit'])->middleware('can:update-roles');
+    Route::post('/roles/store', [RoleController::class, 'store'])->middleware('can:create-roles');
+    Route::post('/roles/{id}/update', [RoleController::class, 'update'])->middleware('can:update-roles');
 
     // Permissions
-    Route::get('/permissions', [PermissionController::class, 'index']);
+    Route::get('/permissions', [PermissionController::class, 'index'])->middleware('can:read-permissions');
     // Route::get('/permissions/loadDatatable', [PermissionController::class, 'loadDatatable']);
-    Route::post('/permissions/store', [PermissionController::class, 'store']);
+    Route::post('/permissions/store', [PermissionController::class, 'store'])->middleware('can:create-permissions');
 
     // Menu
-    Route::get('/menus', [MenuController::class, 'index']);
-    Route::get('/menus/create', [MenuController::class, 'create']);
-    Route::post('/menus/store', [MenuController::class, 'store']);
+    Route::get('/menus', [MenuController::class, 'index'])->middleware('can:read-menus');
+    Route::get('/menus/create', [MenuController::class, 'create'])->middleware('can:create-menus');
+    Route::post('/menus/store', [MenuController::class, 'store'])->middleware('can:create-menus');
 
     // Sub menu
-    Route::get('/submenus', [SubmenuController::class, 'index']);
-    Route::get('/submenus/create', [SubmenuController::class, 'create']);
-    Route::post('/submenus/store', [SubmenuController::class, 'store']);
+    Route::get('/submenus', [SubmenuController::class, 'index'])->middleware('can:read-submenus');
+    Route::get('/submenus/create', [SubmenuController::class, 'create'])->middleware('can:create-submenus');
+    Route::post('/submenus/store', [SubmenuController::class, 'store'])->middleware('can:create-submenus');
 
     // Menu Group
-    Route::get('/menu_groups', [MenuGroupController::class, 'index']);
-    Route::post('/menu_groups/store', [MenuGroupController::class, 'store']);
+    Route::get('/menu_groups', [MenuGroupController::class, 'index'])->middleware('can:read-menugroups');
+    Route::post('/menu_groups/store', [MenuGroupController::class, 'store'])->middleware('can:create-menugroups');
 });
 

@@ -15,7 +15,9 @@
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            <li><a href="/administrator/menus/create" class="btn btn-light bg-white"><em class="icon ni ni-plus"></em><span>Add New Menu</span></a></li>
+                            @can('create-menus')
+                                <li><a href="/administrator/menus/create" class="btn btn-light bg-white"><em class="icon ni ni-plus"></em><span>Add New Menu</span></a></li>
+                            @endcan
                         </ul>
                     </div>
                 </div><!-- .toggle-wrap -->

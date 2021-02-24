@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
             'updated_by' => '1',
         ]);
 
-        $admin->assignRole('Administrator');
+        $admin->assignRole('Developer');
 
         $finance = User::create([
             'name' => 'Dimas Anggara',
@@ -39,6 +39,6 @@ class UserSeeder extends Seeder
             'updated_by' => '1',
         ]);
 
-        $finance->assignRole('Finance');
+        $finance->assignRole('Administrator');
     }
 }
