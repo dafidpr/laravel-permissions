@@ -18,6 +18,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+        // dd(\getInfoLogin()->can('read-dashboard'));
         $data = [
             'title' => 'Role Lists',
             'mod'   => 'mod_role',

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\User;
 
@@ -38,7 +39,7 @@ class AuthController extends Controller
 
                     $user = User::where('email', $request->post('email'))->first();
     
-                    if ($user && Hash::check($request->post('password'), $user->password)) {
+                    if (Auth::guard('web')->attempt($request->only(['email', 'password']))) {
             
                         $request->session()->put('user', [
                             'id' => $user->id,

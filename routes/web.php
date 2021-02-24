@@ -33,7 +33,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 // Route Administrator
 Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->group(function(){
     // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('can:read-dashboard');
 
     // User
     Route::get('/users', [UserController::class, 'index']);
@@ -48,8 +48,9 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
     Route::post('/roles/store', [RoleController::class, 'store']);
     Route::post('/roles/{id}/update', [RoleController::class, 'update']);
 
-    // Role
+    // Permissions
     Route::get('/permissions', [PermissionController::class, 'index']);
+    // Route::get('/permissions/loadDatatable', [PermissionController::class, 'loadDatatable']);
     Route::post('/permissions/store', [PermissionController::class, 'store']);
 
     // Menu

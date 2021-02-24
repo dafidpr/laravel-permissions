@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
+use DataTables;
 
 class PermissionController extends Controller
 {
@@ -23,6 +24,15 @@ class PermissionController extends Controller
         ];
         return view('admin.permission.index', $data);
     }
+
+    // public function loadDatatable()
+    // {
+    //     if(\Request::ajax()){
+    //         return Datatables::of(Permission::query())->make(true);
+    //     } else {
+    //         abort(403);
+    //     }
+    // }
 
     /**
      * Show the form for creating a new resource.

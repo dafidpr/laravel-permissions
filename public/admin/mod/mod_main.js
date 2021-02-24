@@ -7,9 +7,74 @@ $(document).ready(function () {
 		displayErrors = "";
 	}
 
-	formSubmit();
+	if (typeof dtDrawCallback == "undefined") {
+		dtDrawCallback = null;
+	}
 
-	function itemDelete(url) {
+	if (typeof dtDrawCallback == "undefined") {
+		dtDrawCallback = () => {};
+	}
+
+	loadData(dataColumns, dtDrawCallback);
+
+	if (typeof dataTableOptions == "undefined") {
+		var dataTableOptions = null;
+	}
+
+	function loadData(columns = [], drawCallback) {
+
+		$("#DataTable").DataTable({
+			processing: true,
+			serverSide: true,
+			ajax: {
+				url: url + datatableUrl,
+				type: "GET",
+				dataType: "json",
+			},
+			columns: columns,
+			responsive: true,
+			dataTableOptions,
+			drawCallback,
+		});
+
+		loadDataTablesInit();
+		loadDataTablesResponsive();
+		formSubmit();
+	}
+
+	function loadDataTablesInit() {
+		$("#DataTable").on("draw.dt", function () {
+			$(".action").click(function () {
+				var toggle = $(this).data("toggle");
+				var dataUrl = $(this).data("url");
+
+				if (toggle == "edit") {
+					window.location.assign(url + dataUrl);
+				}
+				if (toggle == "delete") {
+					itemDelete(dataUrl);
+				}
+			});
+		});
+	}
+
+	function loadDataTablesResponsive(){
+		$("#DataTable").DataTable().on("responsive-display", function () {
+			$(".action").click(function () {
+				var toggle = $(this).data("toggle");
+				var dataUrl = $(this).data("url");
+
+				if (toggle == "edit") {
+					window.location.assign(url + dataUrl);
+				}
+				if (toggle == "delete") {
+					itemDelete(dataUrl);
+				}
+			});
+		});
+	}
+
+	function itemDelete(dataUrl) {
 		Swal.fire({
 			title: "Delete?",
 			icon: "question",
@@ -22,7 +87,7 @@ $(document).ready(function () {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				$.ajax({
-					url: base_url + url,
+					url: url + dataUrl,
 					dataType: "json",
 					success: function (data) {
 						if (data.status == 400) {

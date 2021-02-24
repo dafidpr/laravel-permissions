@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/assets/css/dashlite.css?ver=2.2.0') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/assets/css/style.css') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('admin/assets/assets/css/theme.css?ver=2.2.0') }}">
+
+        <!-- Start datatable css -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/buttons.bootstrap4.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/responsive.bootstrap4.min.css') }}">
     <script>
         var url = '{{ url("") }}';
     </script>
