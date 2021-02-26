@@ -39,6 +39,8 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
     Route::get('/users', [UserController::class, 'index'])->middleware('can:read-users');
     Route::get('/users/create', [UserController::class, 'create'])->middleware('can:create-users');
     Route::post('/users/store', [UserController::class, 'store'])->middleware('can:create-users');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->middleware('can:update-users');
+    Route::post('/users/{id}/update', [UserController::class, 'update'])->middleware('can:update-users');
     Route::get('/users/change_password', [UserController::class, 'changePassword']);
     Route::post('/users/change_password/update_password', [UserController::class, 'updatePassword']);
 
@@ -50,7 +52,7 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
 
     // Permissions
     Route::get('/permissions', [PermissionController::class, 'index'])->middleware('can:read-permissions');
-    // Route::get('/permissions/loadDatatable', [PermissionController::class, 'loadDatatable']);
+    Route::get('/permissions/loadDatatable', [PermissionController::class, 'loadDatatable']);
     Route::post('/permissions/store', [PermissionController::class, 'store'])->middleware('can:create-permissions');
 
     // Menu

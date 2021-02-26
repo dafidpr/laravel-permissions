@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\User;
+use Vinkla\Hashids\Facades\Hashids;
+use File;
 
 class UserController extends Controller
 {
@@ -38,7 +39,8 @@ class UserController extends Controller
         $data = [
             'title' => 'Create User',
             'mod'   => 'mod_user',
-            'roles' => Role::all()
+            'roles' => Role::all(),
+            'action' => '/administrator/users/store'
         ];
         return view('admin.user.form', $data);
     }
@@ -73,7 +75,7 @@ class UserController extends Controller
                     $fileName = 'user_pic.png';
                     if($request->file('picture') != null){
 
-                        $fileName = Str::random(35).'.'.$request->file('picture')->extension();
+                        $fileName = $request->file('picture');
                         $request->file('picture')->move(public_path($path), $fileName);
                     }
                     $user = User::create([
@@ -83,7 +85,7 @@ class UserController extends Controller
                         'password'  => Hash::make($request->password),
                         'block'     => $request->block,
                         'picture'   => $fileName,
-                        'phone'     => $request->phone,
+                        'phone_number'=> $request->phone,
                         'created_by'=> \getInfoLogin()->id,
                         'updated_by'=> \getInfoLogin()->id
                     ]);
@@ -124,7 +126,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ids = Hashids::decode($id);
+        $data = [
+            'title' => 'Edit User',
+            'mod'   => 'mod_user',
+            'roles' => Role::all(),
+            'user' => User::with('roles')->find($ids[0]),
+            'action' => '/administrator/users/'.$id.'/update'
+        ];
+        return view('admin.user.form', $data);
     }
 
     /**
@@ -136,7 +146,60 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ids = Hashids::decode($id);
+        if(\Request::ajax()){
+            $validator = Validator::make($request->all(), [
+                'name'      => 'required',
+                'username'  => 'required',
+                'email'     => 'required|email',
+                'block'     => 'required',
+                'picture'   => 'image|mimes:jpg,jpeg,png,gif',
+                'phone'     => 'required'
+            ]);
+
+            if($validator->fails()){
+                return response()->json([
+                    'messages' => $validator->messages()
+                ], 400);
+            } else {
+
+                try {
+                    $path = 'admin/uploads/img/profile/';
+                    $user = User::findOrFail($ids[0]);
+                    $fileName = $user->picture;
+                    if($request->file('picture') != null){
+                        if($fileName != 'user_pic.png'){
+                            File::delete($path.$fileName);
+                        }
+                        $fileName = $request->file('picture')->getClientOriginalName();
+                        $request->file('picture')->move(public_path($path), $fileName);
+                    }
+                    $userUpdate = User::where('id', $ids[0])->update([
+                        'name'      => $request->name,
+                        'username'  => $request->username,
+                        'email'     => $request->email,
+                        'block'     => $request->block,
+                        'picture'   => $fileName,
+                        'phone_number'=> $request->phone,
+                        'created_by'=> \getInfoLogin()->id,
+                        'updated_by'=> \getInfoLogin()->id
+                    ]);
+                    $user->syncRoles($request->role);
+
+                    return response()->json([
+                        'messages'  => 'New user successfuly created',
+                        'redirect'  => '/administrator/users'
+                    ], 200);
+
+                } catch (Exeption $e){
+                    return response()->json([
+                        'messages' => 'Opps! Something wrong.'
+                    ], 409);
+                }
+            }
+        } else {
+            abort(403);
+        }
     }
 
     /**

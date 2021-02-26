@@ -23,13 +23,13 @@
         <div class="card card-bordered card-stretch">
             <div class="card-inner">
                 <div class="preview-block">
-                    <form action="/administrator/users/store" method="post" enctype="multipart/form-data" id="formSubmit">
+                    <form action="{{ $action }}" method="post" enctype="multipart/form-data" id="formSubmit">
                         <div class="row gy-4">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-label" for="default-01">Full Name <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" autocomplete="off">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" autocomplete="off" value="{{ isset($user->name) ? $user->name : '' }}">
                                         <i class="text-danger small d-none" id="nameErr"></i>
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="default-01">Username <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off">
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" value="{{ isset($user->username) ? $user->username : '' }}">
                                         <i class="text-danger small d-none" id="usernameErr"></i>
                                     </div>
                                 </div>
@@ -51,20 +51,20 @@
                                         <div class="form-icon form-icon-left">
                                             <em class="icon ni ni-mail"></em>
                                         </div>
-                                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off">
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off" value="{{ isset($user->email) ? $user->email : '' }}">
                                     </div>
                                     <i class="text-danger small d-none" id="emailErr"></i>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="default-03">Password <span class="text-danger">*</span></label>
+                                    <label class="form-label" for="default-03">Password <span class="text-danger">{{ isset($user->password) ? '' : '*' }}</span></label>
                                     <div class="form-control-wrap">
                                         <a href="#" class="form-icon form-icon-right passcode-switch show-password" data-target="password">
                                             <em class="passcode-icon icon-show icon ni ni-eye"></em>
                                             <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
                                         </a>
-                                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off" {{ isset($user->password) ? 'disabled' : '' }}>
                                     </div>
                                     <i class="text-danger small d-none" id="passErr"></i>
                                 </div>
@@ -74,9 +74,13 @@
                                     <label class="form-label">Role <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
                                         <select class="form-select form-control form-control-lg" data-placeholder="Select Roles" data-search="on" name="role">
-                                            {{-- <option value="" selected ></option> --}}
                                             @foreach ($roles as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @if ($item->id == $user->roles[0]->id)
+                                                    <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                                                    @else
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    
+                                                @endif
                                             @endforeach
                                         </select>
                                         <i class="text-danger small d-none" id="roleErr"></i>
@@ -87,7 +91,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="default-01">Phone Number <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number" autocomplete="off">
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number" autocomplete="off" value="{{ isset($user->phone_number) ? $user->phone_number : '' }}">
                                         <i class="text-danger small d-none" id="phoneErr"></i>
                                     </div>
                                 </div>
@@ -97,9 +101,14 @@
                                     <label class="form-label">Block <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
                                         <select class="form-select form-control form-control-lg" name="block">
-                                            <option value="N">Unblock</option>
-                                            <option value="Y">Block</option>
-                                        </select>
+                                            @if ($user->block == 'N')
+                                                <option value="N" selected>Unblock</option>
+                                                <option value="Y">Block</option>
+                                                @else
+                                                <option value="N">Unblock</option>
+                                                <option value="Y" selected>Block</option>
+                                                @endif
+                                            </select>
                                         <i class="text-danger small d-none" id="blockErr"></i>
                                     </div>
                                 </div>

@@ -25,14 +25,14 @@ class PermissionController extends Controller
         return view('admin.permission.index', $data);
     }
 
-    // public function loadDatatable()
-    // {
-    //     if(\Request::ajax()){
-    //         return Datatables::of(Permission::query())->make(true);
-    //     } else {
-    //         abort(403);
-    //     }
-    // }
+    public function loadDatatable()
+    {
+        if(\Request::ajax()){
+            return Datatables::of(Permission::query())->make(true);
+        } else {
+            abort(403);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.

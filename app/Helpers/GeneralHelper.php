@@ -3,11 +3,12 @@
 use App\Models\User;
 use App\Models\Setting;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('getInfoLogin')) {
 	function getInfoLogin()
     {
-        $user = User::with('roles')->where('id', session('user')['id'])->first();
+        $user = Auth::user();
         return $user;
 	}
 }

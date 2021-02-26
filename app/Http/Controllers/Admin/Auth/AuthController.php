@@ -38,21 +38,25 @@ class AuthController extends Controller
                 try {
 
                     $user = User::where('email', $request->post('email'))->first();
-    
                     if (Auth::guard('web')->attempt($request->only(['email', 'password']))) {
-            
-                        $request->session()->put('user', [
-                            'id' => $user->id,
-                            'name' => $user->name,
-                            'email' => $user->email,
-                            'picture' => $user->picture,
-                        ]);
-                        $user->last_login = Carbon::now();
-                        $user->save();
-
-                        return response()->json([
-                            'redirect' => '/administrator/dashboard'
-                        ], 200);
+                        if($user->block == 'Y'){
+                            return response()->json([
+                                'messages' => 'Your account is blocked'
+                            ], 403);
+                        } else {
+                            $request->session()->put('user', [
+                                'id' => $user->id,
+                                'name' => $user->name,
+                                'email' => $user->email,
+                                'picture' => $user->picture,
+                            ]);
+                            $user->last_login = Carbon::now();
+                            $user->save();
+    
+                            return response()->json([
+                                'redirect' => '/administrator/dashboard'
+                            ], 200);
+                        }
                     } else {
                         return response()->json([
                             'messages' => 'Wrong email or password'

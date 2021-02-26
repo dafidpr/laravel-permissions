@@ -72,7 +72,7 @@ $('#formLogin').submit(function(e){
                     icon: "error",
                     text: xhr.responseJSON['messages']
                 });
-            } else if(xhr.status == 404){
+            } else if(xhr.status == 404 || xhr.status == 403){
                 var html = "";
                 html += `<div class="example-alert mb-3">
                             <div class="alert alert-danger alert-icon alert-dismissible">

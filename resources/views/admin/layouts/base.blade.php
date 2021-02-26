@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.png') }}">
-    <title><?php echo $title?> | Laravel Permission App</title>
+    <title>{{ $title .' | '. getSetting('web_name') }}</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('admin/assets/assets/css/dashlite.css?ver=2.2.0') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/assets/css/style.css') }}">

@@ -1,3 +1,4 @@
+var datatableUrl = "/administrator/submenus/loadDatatable";
 var displayErrors = [
     {
         display: "#titleErr",

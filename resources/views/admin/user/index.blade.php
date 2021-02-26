@@ -126,7 +126,7 @@
                                 <a href="#">
                                     <div class="user-card">
                                         <div class="user-avatar bg-primary">
-                                            <span>AB</span>
+                                           <img src="{{ asset('admin/uploads/img/profile').'/'.$item->picture }}" alt="">
                                         </div>
                                         <div class="user-info">
                                             <span class="tb-lead">{{ $item->name }}</span>
@@ -161,7 +161,7 @@
                                             <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <ul class="link-list-opt no-bdr">
-                                                    <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit User</span></a></li>
+                                                    <li><a href="/administrator/users/{{ Hashids::encode($item->id) }}/edit"><em class="icon ni ni-edit"></em><span>Edit User</span></a></li>
                                                     <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete User</span></a></li>
                                                     <li><a href="#"><em class="icon ni ni-eye"></em><span>User Detail</span></a></li>
                                                     <li class="divider"></li>

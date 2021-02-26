@@ -15,7 +15,7 @@
                 <div class="nk-block-head-content">
                     <h4 class="nk-block-title">Sign-In</h4>
                     <div class="nk-block-des">
-                        <p>Access the Dashboard panel using your email and passcode.</p>
+                        <p>Access the Dashboard panel using your email and password.</p>
                     </div>
                 </div>
             </div>

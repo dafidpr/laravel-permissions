@@ -28,7 +28,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <div class="user-toggle">
                                 <div class="user-avatar sm">
-                                    <em class="icon ni ni-user-alt"></em>
+                                    <img src="{{ asset('admin/uploads/img/profile').'/'.getInfoLogin()->picture }}" alt="">
                                 </div>
                                 <div class="user-info d-none d-md-block">
                                     <div class="user-status">{{ getInfoLogin()->roles[0]['name'] }}</div>
@@ -53,7 +53,6 @@
                                     <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
                                     <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
                                     <li><a href="/administrator/users/change_password"><em class="icon ni ni-shield-star"></em><span>Change Password</span></a></li>
-                                    <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
                                 </ul>
                             </div>
                             <div class="dropdown-inner">
