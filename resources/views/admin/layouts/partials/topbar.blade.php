@@ -17,7 +17,7 @@
                             <em class="icon ni ni-card-view"></em>
                         </div>
                         <div class="nk-news-text">
-                            <p>Laravel Permission App </p>
+                            <p>{{ getSetting('web_name') }}</p>
                         </div>
                     </a>
                 </div>
@@ -40,7 +40,7 @@
                             <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                 <div class="user-card">
                                     <div class="user-avatar">
-                                        <span>AB</span>
+                                        <img src="{{ asset('admin/uploads/img/profile').'/'.getInfoLogin()->picture }}" alt="">
                                     </div>
                                     <div class="user-info">
                                         <span class="lead-text">{{ getInfoLogin()->name }}</span>
