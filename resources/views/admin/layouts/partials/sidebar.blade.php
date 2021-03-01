@@ -16,9 +16,11 @@
                 <div class="nk-sidebar-menu">
                     <ul class="nk-menu">
                         @foreach(request()->menus as $menuGroup)
-                            <li class="nk-menu-heading">
-                                <h6 class="overline-title text-primary-alt">{{ $menuGroup->name }}</h6>
-                            </li><!-- .nk-menu-item -->
+                            @if (count($menuGroup->menu) > 0)    
+                                <li class="nk-menu-heading">
+                                    <h6 class="overline-title text-primary-alt">{{ $menuGroup->name }}</h6>
+                                </li><!-- .nk-menu-item -->
+                            @endif
                             @foreach ($menuGroup->menu as $menu)
                                 @if (count($menu->submenu) > 0)
                                     <li class="nk-menu-item has-sub">
