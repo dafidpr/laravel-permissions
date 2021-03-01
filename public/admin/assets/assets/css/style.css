@@ -78,3 +78,52 @@
 .bg-light-table {
     background: #f5f6fa;
 }
+
+.pre-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    z-index: 9999;
+}
+
+.pre-loader-content {
+    width: 200px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    animation: blink 1s ease infinite;
+    -webkit-animation: blink 1s ease infinite;
+}
+
+.hide {
+    animation: hideAnimation 2.5s ease;
+    -webkit-animation: hideAnimation 2.5s ease;
+    pointer-events: none;
+    opacity: 0;
+}
+ 
+@keyframes blink {
+    0% {
+        opacity: 1;
+    } 100% {
+        opacity: .5;
+    }
+}
+
+@keyframes hideAnimation {
+    0% {
+        opacity: 1;
+        top: 0;
+    } 100% {
+        opactity: 0;
+        top: -30%;
+    }
+}

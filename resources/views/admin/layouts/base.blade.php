@@ -24,8 +24,20 @@
 </head>
 
 <body class="nk-body bg-white has-sidebar ">
+    <div class="pre-loader">
+        <div class="pre-loader-content">
+            <img src="{{ asset('admin/assets/images/logo-dark.png') }}" class="w-100" alt="">
+        </div>
+    </div>
+
     @yield('child')
     @yield('script')
+
+    <script>
+        $(window).on('load', function(){
+            $('.pre-loader').addClass('hide');
+        })
+    </script>
 </body>
 
 </html>

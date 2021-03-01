@@ -67,6 +67,9 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
     // Sub menu
     Route::get('/submenus', [SubmenuController::class, 'index'])->middleware('can:read-submenus');
     Route::get('/submenus/create', [SubmenuController::class, 'create'])->middleware('can:create-submenus');
+    Route::get('/submenus/{id}/edit', [SubmenuController::class, 'edit'])->middleware('can:update-submenus');
+    Route::post('/submenus/{id}/update', [SubmenuController::class, 'update'])->middleware('can:update-submenus');
+    Route::post('/submenus/{id}/destroy', [SubmenuController::class, 'destroy'])->middleware('can:delete-submenus');
     Route::post('/submenus/store', [SubmenuController::class, 'store'])->middleware('can:create-submenus');
 
     // Menu Group

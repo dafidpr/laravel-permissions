@@ -91,8 +91,8 @@
                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <ul class="link-list-opt no-bdr">
-                                                        <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Menu</span></a></li>
-                                                        <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Menu</span></a></li>
+                                                        <li><a href="/administrator/submenus/{{ Hashids::encode($item->id) }}/edit"><em class="icon ni ni-edit"></em><span>Edit Menu</span></a></li>
+                                                        <li><a href="/administrator/submenus/{{ Hashids::encode($item->id) }}/destroy" class="deleteIt"><em class="icon ni ni-trash"></em><span>Delete Menu</span></a></li>
                                                     </ul>
                                                 </div>
                                             </div>

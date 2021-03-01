@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Submenu;
+use Vinkla\Hashids\Facades\Hashids;
 use App\Models\Menu;
 use Carbon\Carbon;
 
@@ -36,6 +37,7 @@ class SubmenuController extends Controller
         $data = [
             'title'=> 'Create Sub Menu',
             'mod'  => 'mod_submenu',
+            'action' => '/administrator/submenus/create',
             'menu_groups'   => Menu::all()
         ];
         return view('admin.submenu.form', $data);
@@ -110,7 +112,15 @@ class SubmenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ids = Hashids::decode($id);
+        $data = [
+            'title'=> 'Create Sub Menu',
+            'mod'  => 'mod_submenu',
+            'action' => '/administrator/submenus/'.$id.'/update',
+            'menu_groups'   => Menu::all(),
+            'sub_menu' => Submenu::find($ids[0])
+        ];
+        return view('admin.submenu.form', $data);
     }
 
     /**
@@ -122,7 +132,47 @@ class SubmenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ids = Hashids::decode($id);
+        if(\Request::ajax()){
+            $validator = Validator::make($request->All(), [
+                'title'      => 'required',
+                'url'        => 'required',
+                'position'   => 'required',
+                'target'     => 'required',
+                'group'      => 'required',
+            ]);
+
+            if($validator->fails()){
+                return response()->json([
+                    'messages' => $validator->messages()
+                ], 400);
+            } else {
+
+                try {
+                    Submenu::where('id', $ids[0])->update([
+                        'menu_id' => $request->group,
+                        'title'     => $request->title,
+                        'url'       => $request->url,
+                        'target'    => $request->target,
+                        'position'  => $request->position,
+                        'created_by'=> getInfoLogin()->id,
+                        'created_at'=> Carbon::now()
+                    ]);
+
+                    return response()->json([
+                        'messages'  => 'New sub menu successfuly updated',
+                        'redirect'  => '/administrator/submenus'
+                    ], 200);
+
+                } catch (Exeption $e){
+                    return response()->json([
+                        'messages' => 'Opps! Something wrong.'
+                    ], 409);
+                }
+            }
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -133,6 +183,21 @@ class SubmenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(\Request::ajax()){
+            try{
+                $ids = Hashids::decode($id);
+                Submenu::destroy($ids[0]);
+
+                return response()->json([
+                    'message' => 'Data has been deleted'
+                ], 200);
+            } catch(Exception $e) {
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], 500);
+            }
+        } else {
+            abort(403);
+        }
     }
 }

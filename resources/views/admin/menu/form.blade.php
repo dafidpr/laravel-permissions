@@ -111,9 +111,9 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="form-group">
+                                <div class="form-group menu-type">
                                     <label class="form-label">Menu Groups <span class="text-danger">*</span></label>
-                                    <div class="form-control-wrap" id="menu_group_input">
+                                    <div class="form-control-wrap menu-type" id="menu_group_input">
                                         <select class="form-select form-control form-control-lg" id="menu_group_select" data-search="on" name="group">
                                             @foreach ($menu_groups as $item)
                                                 @if (isset($menu->menu_group_id))
