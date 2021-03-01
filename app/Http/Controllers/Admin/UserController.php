@@ -187,7 +187,7 @@ class UserController extends Controller
                     $user->syncRoles($request->role);
 
                     return response()->json([
-                        'messages'  => 'New user successfuly created',
+                        'messages'  => 'User successfuly updated',
                         'redirect'  => '/administrator/users'
                     ], 200);
 

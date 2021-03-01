@@ -15,7 +15,7 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('menu_group_id');
+            $table->unsignedBigInteger('menu_group_id')->nullable();
             $table->enum('type', ['Backend', 'Frontend']);
             $table->string('title');
             $table->string('url');

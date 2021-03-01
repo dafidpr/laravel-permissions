@@ -75,12 +75,15 @@
                                     <div class="form-control-wrap">
                                         <select class="form-select form-control form-control-lg" data-placeholder="Select Roles" data-search="on" name="role">
                                             @foreach ($roles as $item)
-                                                @if ($item->id == $user->roles[0]->id)
-                                                    <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                                                @if (isset($user->roles[0]->id))
+                                                    @if ($item->id == $user->roles[0]->id)
+                                                        <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
                                                     @else
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endif
+                                                @else
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                    
-                                                @endif
+                                            @endif
                                             @endforeach
                                         </select>
                                         <i class="text-danger small d-none" id="roleErr"></i>
@@ -101,13 +104,18 @@
                                     <label class="form-label">Block <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
                                         <select class="form-select form-control form-control-lg" name="block">
-                                            @if ($user->block == 'N')
-                                                <option value="N" selected>Unblock</option>
-                                                <option value="Y">Block</option>
-                                                @else
-                                                <option value="N">Unblock</option>
-                                                <option value="Y" selected>Block</option>
+                                            @if (isset($user->block))
+                                                @if ($user->block == 'N')
+                                                    <option value="N" selected>Unblock</option>
+                                                    <option value="Y">Block</option>
+                                                @else     
+                                                    <option value="N">Unblock</option>
+                                                    <option value="Y" selected>Block</option>
                                                 @endif
+                                            @else
+                                                <option value="N">Unblock</option>
+                                                <option value="Y">Block</option>
+                                            @endif
                                             </select>
                                         <i class="text-danger small d-none" id="blockErr"></i>
                                     </div>

@@ -203,6 +203,9 @@ $(document).ready(function () {
 	{
 		$('.add').click(() => {
 			$('#myModal form').attr('action', url + pathStoreUrl);
+			$.each(displayErrors, function (key, value) {
+				$('input[name="' + value.inputName + '"]').val("");
+			});
 		})
 	}
 });

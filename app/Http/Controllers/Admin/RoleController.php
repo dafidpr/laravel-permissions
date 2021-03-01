@@ -85,7 +85,22 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        $ids = Hashids::decode($id);
+        if(\Request::ajax()){
+            try {
+                return response()->json([
+                    'response'  => Role::find($ids[0]),
+                ], 200);
+
+            } catch (Exeption $e){
+                return response()->json([
+                    'messages' => 'Opps! Something wrong.'
+                ], 409);
+            }
+
+        } else {
+            abort(403);
+        }
     }
 
     /**

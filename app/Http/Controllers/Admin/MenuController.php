@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Menu;
 use App\Models\MenuGroup;
 use Carbon\Carbon;
+use Vinkla\Hashids\Facades\Hashids;
 
 class MenuController extends Controller
 {
@@ -35,9 +36,10 @@ class MenuController extends Controller
     public function create()
     {
         $data = [
-            'title'         => 'Create Menu',
-            'mod'           => 'mod_menu',
-            'menu_groups'   => MenuGroup::all()
+            'title' => 'Create Menu',
+            'mod' => 'mod_menu',
+            'action' => '/administrator/menus/store',
+            'menu_groups' => MenuGroup::all()
         ];
         return view('admin.menu.form', $data);
     }
@@ -51,14 +53,8 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         if(\Request::ajax()){
-            $validator = Validator::make($request->All(), [
-                'title'      => 'required',
-                'url'        => 'required',
-                'position'   => 'required',
-                'target'     => 'required',
-                'type'       => 'required',
-                'group'      => 'required',
-            ]);
+
+            $validator = $this->__validate($request);
 
             if($validator->fails()){
                 return response()->json([
@@ -68,7 +64,7 @@ class MenuController extends Controller
 
                 try {
                     Menu::create([
-                        'menu_group_id' => $request->group,
+                        'menu_group_id' => ($request->group == "null") ? null : $request->group,
                         'type'     => $request->type,
                         'title'     => $request->title,
                         'url'       => $request->url,
@@ -114,7 +110,15 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ids = Hashids::decode($id);
+        $data = [
+            'title' => 'Edit Menu',
+            'mod' => 'mod_menu',
+            'action' => '/administrator/menus/'.$id.'/update',
+            'menu_groups' => MenuGroup::all(),
+            'menu' => Menu::find($ids[0])
+        ];
+        return view('admin.menu.form', $data);
     }
 
     /**
@@ -126,7 +130,44 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ids = Hashids::decode($id);
+        if(\Request::ajax()){
+
+            $validator = $this->__validate($request);
+
+            if($validator->fails()){
+                return response()->json([
+                    'messages' => $validator->messages()
+                ], 400);
+            } else {
+
+                try {
+                    Menu::where('id', $ids[0])->update([
+                        'menu_group_id' => ($request->group == "null") ? null : $request->group,
+                        'type'     => $request->type,
+                        'title'     => $request->title,
+                        'url'       => $request->url,
+                        'icon'      => $request->icon,
+                        'target'    => $request->target,
+                        'position'  => $request->position,
+                        'updated_by'=> getInfoLogin()->id,
+                        'updated_at'=> Carbon::now()
+                    ]);
+
+                    return response()->json([
+                        'messages'  => 'Menu successfuly updated',
+                        'redirect'  => '/administrator/menus'
+                    ], 200);
+
+                } catch (Exeption $e){
+                    return response()->json([
+                        'messages' => 'Opps! Something wrong.'
+                    ], 409);
+                }
+            }
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -138,5 +179,18 @@ class MenuController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function __validate($request)
+    {
+        $validator = Validator::make($request->All(), [
+            'title'      => 'required',
+            'url'        => 'required',
+            'position'   => 'required',
+            'target'     => 'required',
+            'type'       => 'required',
+            'group'      => 'required',
+        ]);
+        return $validator;
     }
 }

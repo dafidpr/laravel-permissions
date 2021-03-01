@@ -23,13 +23,13 @@
         <div class="card card-bordered card-stretch">
             <div class="card-inner">
                 <div class="preview-block">
-                    <form action="/administrator/menus/store" method="post" id="formSubmit">
+                    <form action="{{ $action }}" method="post" id="formSubmit">
                         <div class="row gy-4">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-label" for="default-01">Title <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="title" name="title" placeholder="Title" autocomplete="off">
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="Title" autocomplete="off" value="{{ isset($menu->title) ? $menu->title : '' }}">
                                         <i class="text-danger small d-none" id="titleErr"></i>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                     <div class="form-control-wrap">
                                         <div class="input-group">
                                             <label class="input-group-text" for="inputGroupSelect01">{{ url("") }}</label>
-                                            <input type="text" class="form-control" id="url" name="url" placeholder="Ex: /administrator/dashboard" autocomplete="off">
+                                            <input type="text" class="form-control" id="url" name="url" placeholder="Ex: /administrator/dashboard" autocomplete="off" value="{{ isset($menu->url) ? $menu->url : '' }}">
                                           </div>
                                     </div>
                                     <i class="text-danger small d-none" id="urlErr"></i>
@@ -51,7 +51,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="default-03">Icon</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="icon" name="icon" placeholder="Ex: icon ni ni-eye" autocomplete="off">
+                                        <input type="text" class="form-control" id="icon" name="icon" placeholder="Ex: icon ni ni-eye" autocomplete="off" value="{{ isset($menu->icon) ? $menu->icon : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="default-03">Position <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <input type="number" class="form-control" id="position" name="position" placeholder="Position" autocomplete="off">
+                                        <input type="number" class="form-control" id="position" name="position" placeholder="Position" autocomplete="off" value="{{ isset($menu->position) ? $menu->position : '' }}">
                                     </div>
                                     <i class="text-danger small d-none" id="positionErr"></i>
                                 </div>
@@ -69,8 +69,19 @@
                                     <label class="form-label">Target <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
                                         <select class="form-select form-control form-control-lg" name="target">
-                                            <option value="none">none</option>
-                                            <option value="_blank">_blank</option>
+                                            @if (isset($menu->target))
+                                                @if ($menu->target == 'none')
+                                                    <option value="none" selected>none</option>
+                                                    <option value="_blank">_blank</option>
+                                                @else
+                                                    <option value="none">none</option>
+                                                    <option value="_blank" selected>_blank</option>
+                                                @endif
+                                            @else
+                                                <option value="none">none</option>
+                                                <option value="_blank">_blank</option>
+                                            @endif
+                                            
                                         </select>
                                         <i class="text-danger small d-none" id="targetErr"></i>
                                     </div>
@@ -80,9 +91,20 @@
                                 <div class="form-group">
                                     <label class="form-label">Menu Type <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <select class="form-select form-control form-control-lg" name="type">
-                                            <option value="Backend">Back End</option>
-                                            <option value="Frontend">Front End</option>
+                                        <select class="form-select form-control form-control-lg" id="type_menu" name="type">
+                                            @if (isset($menu->type))
+                                                @if ($menu->type == 'Backend')
+                                                    <option value="Backend" selected>Back End</option>
+                                                    <option value="Frontend">Front End</option>
+                                                @else
+                                                    <option value="Backend">Back End</option>
+                                                    <option value="Frontend" selected>Front End</option>
+                                                @endif
+                                            @else
+                                                <option value="Backend">Back End</option>
+                                                <option value="Frontend">Front End</option>
+                                            @endif
+                                           
                                         </select>
                                         <i class="text-danger small d-none" id="typeErr"></i>
                                     </div>
@@ -91,11 +113,18 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label class="form-label">Menu Groups <span class="text-danger">*</span></label>
-                                    <div class="form-control-wrap">
-                                        <select class="form-select form-control form-control-lg" data-search="on" name="group">
-                                            <option value="0">None</option>
+                                    <div class="form-control-wrap" id="menu_group_input">
+                                        <select class="form-select form-control form-control-lg" id="menu_group_select" data-search="on" name="group">
                                             @foreach ($menu_groups as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @if (isset($menu->menu_group_id))
+                                                    @if ($menu->menu_group_id == $item->id)
+                                                        <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                                                    @else
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endif
+                                                @else
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endif
                                             @endforeach
                                         </select>
                                         <i class="text-danger small d-none" id="groupErr"></i>

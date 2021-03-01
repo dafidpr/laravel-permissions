@@ -28,19 +28,34 @@
                                         </a>
                                         <ul class="nk-menu-sub">
                                             @foreach ($menu->submenu as $submenu)
-                                                <li class="nk-menu-item">
-                                                    <a href="{{ $submenu->url }}" class="nk-menu-link"><span class="nk-menu-text">{{ $submenu->title }}</span></a>
-                                                </li>
+                                                @if ($menu->target == 'none')
+                                                    <li class="nk-menu-item">
+                                                        <a href="{{ $submenu->url }}" class="nk-menu-link"><span class="nk-menu-text">{{ $submenu->title }}</span></a>
+                                                    </li>
+                                                @else
+                                                    <li class="nk-menu-item">
+                                                        <a href="{{ $submenu->url }}" target="{{ $menu->target }}" class="nk-menu-link"><span class="nk-menu-text">{{ $submenu->title }}</span></a>
+                                                    </li>
+                                                @endif
                                             @endforeach
                                         </ul><!-- .nk-menu-sub -->
                                     </li><!-- .nk-menu-item -->
                                 @else
-                                    <li class="nk-menu-item">
-                                        <a href="{{ $menu->url }}" class="nk-menu-link">
-                                            <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
-                                            <span class="nk-menu-text">{{ $menu->title }}</span>
-                                        </a>
-                                    </li>
+                                    @if ($menu->target == 'none')
+                                        <li class="nk-menu-item">
+                                            <a href="{{ $menu->url }}" class="nk-menu-link">
+                                                <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
+                                                <span class="nk-menu-text">{{ $menu->title }}</span>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="nk-menu-item">
+                                            <a href="{{ $menu->url }}" target="{{ $menu->target }}" class="nk-menu-link">
+                                                <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
+                                                <span class="nk-menu-text">{{ $menu->title }}</span>
+                                            </a>
+                                        </li>
+                                    @endif
                                 @endif
                                 {{-- {{ $menu->submenu }} --}}
                             @endforeach

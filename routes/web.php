@@ -49,6 +49,8 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
     Route::get('/roles/{id}/changes', [RoleController::class, 'edit'])->middleware('can:update-roles');
     Route::post('/roles/store', [RoleController::class, 'store'])->middleware('can:create-roles');
     Route::post('/roles/{id}/update', [RoleController::class, 'update'])->middleware('can:update-roles');
+    Route::get('/roles/{id}/show', [RoleController::class, 'show'])->middleware('can:update-roles');
+    Route::post('/roles/{id}/update', [RoleController::class, 'update'])->middleware('can:update-roles');
 
     // Permissions
     Route::get('/permissions', [PermissionController::class, 'index'])->middleware('can:read-permissions');
@@ -58,6 +60,8 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
     // Menu
     Route::get('/menus', [MenuController::class, 'index'])->middleware('can:read-menus');
     Route::get('/menus/create', [MenuController::class, 'create'])->middleware('can:create-menus');
+    Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->middleware('can:update-menus');
+    Route::post('/menus/{id}/update', [MenuController::class, 'update'])->middleware('can:update-menus');
     Route::post('/menus/store', [MenuController::class, 'store'])->middleware('can:create-menus');
 
     // Sub menu
