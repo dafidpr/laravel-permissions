@@ -16,7 +16,7 @@
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
                             @can('create-submenus')
-                                <li><a href="/administrator/submenus/create" class="btn btn-light bg-white"><em class="icon ni ni-plus"></em><span>Add New Sub Menu</span></a></li>
+                                <li><a href="/administrator/sub-menus/create" class="btn btn-light bg-white"><em class="icon ni ni-plus"></em><span>Add New Sub Menu</span></a></li>
                             @endcan
                         </ul>
                     </div>

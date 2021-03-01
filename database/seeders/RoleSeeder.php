@@ -14,14 +14,18 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::create([
+        $developerRole = Role::create([
             'name' => 'Developer',
             'guard_name' => 'web'
         ]);
 
-        Role::create([
+        $administratorRole = Role::create([
             'name' => 'Administrator',
             'guard_name' => 'web'
         ]);
+
+        $developerRole->givePermissionTo(['read-dashboard','read-roles','create-roles','update-roles','delete-roles']);
+        $developerRole->givePermissionTo(['read-permissions','create-permissions','update-permissions','delete-permissions']);
+        $developerRole->givePermissionTo('read-dashboard');
     }
 }

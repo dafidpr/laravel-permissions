@@ -16,50 +16,40 @@
                 <div class="nk-sidebar-menu">
                     <ul class="nk-menu">
                         @foreach(request()->menus as $menuGroup)
-                            @if (count($menuGroup->menu) > 0)    
+                            @if (count($menuGroup->menu) > 0)
                                 <li class="nk-menu-heading">
                                     <h6 class="overline-title text-primary-alt">{{ $menuGroup->name }}</h6>
                                 </li><!-- .nk-menu-item -->
                             @endif
                             @foreach ($menuGroup->menu as $menu)
                                 @if (count($menu->submenu) > 0)
-                                    <li class="nk-menu-item has-sub">
-                                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                                            <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
-                                            <span class="nk-menu-text">{{ $menu->title }}</span>
-                                        </a>
-                                        <ul class="nk-menu-sub">
-                                            @foreach ($menu->submenu as $submenu)
-                                                @if ($menu->target == 'none')
-                                                    <li class="nk-menu-item">
-                                                        <a href="{{ $submenu->url }}" class="nk-menu-link"><span class="nk-menu-text">{{ $submenu->title }}</span></a>
-                                                    </li>
-                                                @else
-                                                    <li class="nk-menu-item">
-                                                        <a href="{{ $submenu->url }}" target="{{ $menu->target }}" class="nk-menu-link"><span class="nk-menu-text">{{ $submenu->title }}</span></a>
-                                                    </li>
-                                                @endif
-                                            @endforeach
-                                        </ul><!-- .nk-menu-sub -->
-                                    </li><!-- .nk-menu-item -->
+
+                                        <li class="nk-menu-item has-sub">
+                                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                                <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
+                                                <span class="nk-menu-text">{{ $menu->title }}</span>
+                                            </a>
+                                            <ul class="nk-menu-sub">
+                                                @foreach ($menu->submenu as $submenu)
+                                                    @can('read-' . explode('/', $submenu->url)[2])
+                                                        <li class="nk-menu-item">
+                                                            <a href="{{ $submenu->url }}" class="nk-menu-link"><span class="nk-menu-text">{{ $submenu->title }}</span></a>
+                                                        </li>
+                                                    @endcan
+                                                @endforeach
+                                            </ul><!-- .nk-menu-sub -->
+                                        </li><!-- .nk-menu-item -->
+
                                 @else
-                                    @if ($menu->target == 'none')
+                                    @can('read-' . explode('/', $menu->url)[2])
                                         <li class="nk-menu-item">
                                             <a href="{{ $menu->url }}" class="nk-menu-link">
                                                 <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
                                                 <span class="nk-menu-text">{{ $menu->title }}</span>
                                             </a>
                                         </li>
-                                    @else
-                                        <li class="nk-menu-item">
-                                            <a href="{{ $menu->url }}" target="{{ $menu->target }}" class="nk-menu-link">
-                                                <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
-                                                <span class="nk-menu-text">{{ $menu->title }}</span>
-                                            </a>
-                                        </li>
+                                        @endcan
                                     @endif
-                                @endif
-                                {{-- {{ $menu->submenu }} --}}
                             @endforeach
                         @endforeach
                     </ul><!-- .nk-menu -->

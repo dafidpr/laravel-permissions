@@ -15,7 +15,7 @@
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            @can('create-menugroups')
+                            @can('create-menu-groups')
                                 <li><a href="#myModal" data-toggle="modal" class="btn btn-light bg-white add"><em class="icon ni ni-plus"></em><span>Add New Menu Group</span></a></li>
                             @endcan
                         </ul>
@@ -60,7 +60,7 @@
                             </tr>
                         </thead><!-- .nk-tb-item -->
                         <tbody>
-                            @foreach ($collection as $item) 
+                            @foreach ($collection as $item)
                             <tr class="nk-tb-item">
                                 <td class="nk-tb-col nk-tb-col-check">
                                     <div class="custom-control custom-control-sm custom-checkbox notext">

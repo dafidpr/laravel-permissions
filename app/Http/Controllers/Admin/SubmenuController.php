@@ -37,7 +37,7 @@ class SubmenuController extends Controller
         $data = [
             'title'=> 'Create Sub Menu',
             'mod'  => 'mod_submenu',
-            'action' => '/administrator/submenus/create',
+            'action' => '/administrator/sub-menus/create',
             'menu_groups'   => Menu::all()
         ];
         return view('admin.submenu.form', $data);
@@ -79,7 +79,7 @@ class SubmenuController extends Controller
 
                     return response()->json([
                         'messages'  => 'New sub menu successfuly created',
-                        'redirect'  => '/administrator/submenus'
+                        'redirect'  => '/administrator/sub-menus'
                     ], 200);
 
                 } catch (Exeption $e){
@@ -116,7 +116,7 @@ class SubmenuController extends Controller
         $data = [
             'title'=> 'Create Sub Menu',
             'mod'  => 'mod_submenu',
-            'action' => '/administrator/submenus/'.$id.'/update',
+            'action' => '/administrator/sub-menus/'.$id.'/update',
             'menu_groups'   => Menu::all(),
             'sub_menu' => Submenu::find($ids[0])
         ];
@@ -161,7 +161,7 @@ class SubmenuController extends Controller
 
                     return response()->json([
                         'messages'  => 'New sub menu successfuly updated',
-                        'redirect'  => '/administrator/submenus'
+                        'redirect'  => '/administrator/sub-menus'
                     ], 200);
 
                 } catch (Exeption $e){

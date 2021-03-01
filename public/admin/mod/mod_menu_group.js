@@ -1,8 +1,8 @@
-var pathStoreUrl = "/administrator/menu_groups/store";
-var datatableUrl = "/administrator/menu_groups/loadDatatable";
+var pathStoreUrl = "/administrator/menu-groups/store";
+var datatableUrl = "/administrator/menu-groups/loadDatatable";
 var displayErrors = [
     {
-        display: '#menuGroupErr',
-        inputName: 'name'
-    }
+        display: "#menuGroupErr",
+        inputName: "name",
+    },
 ];

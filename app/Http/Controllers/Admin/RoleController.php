@@ -117,7 +117,7 @@ class RoleController extends Controller
         $permissions = Permission::all()->pluck('name');
 
         foreach ($permissions as $permission) {
-            $remappedPermission[explode('-', $permission)[1]][] = $permission;
+            $remappedPermission[implode('-',array_slice(explode('-', $permission), 1))][] = $permission;
         }
 
         $data = [

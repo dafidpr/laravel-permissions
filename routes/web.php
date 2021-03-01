@@ -65,15 +65,15 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
     Route::post('/menus/store', [MenuController::class, 'store'])->middleware('can:create-menus');
 
     // Sub menu
-    Route::get('/submenus', [SubmenuController::class, 'index'])->middleware('can:read-submenus');
-    Route::get('/submenus/create', [SubmenuController::class, 'create'])->middleware('can:create-submenus');
-    Route::get('/submenus/{id}/edit', [SubmenuController::class, 'edit'])->middleware('can:update-submenus');
-    Route::post('/submenus/{id}/update', [SubmenuController::class, 'update'])->middleware('can:update-submenus');
-    Route::post('/submenus/{id}/destroy', [SubmenuController::class, 'destroy'])->middleware('can:delete-submenus');
-    Route::post('/submenus/store', [SubmenuController::class, 'store'])->middleware('can:create-submenus');
+    Route::get('/sub-menus', [SubmenuController::class, 'index'])->middleware('can:read-sub-menus');
+    Route::get('/sub-menus/create', [SubmenuController::class, 'create'])->middleware('can:create-sub-menus');
+    Route::get('/sub-menus/{id}/edit', [SubmenuController::class, 'edit'])->middleware('can:update-sub-menus');
+    Route::post('/sub-menus/{id}/update', [SubmenuController::class, 'update'])->middleware('can:update-sub-menus');
+    Route::post('/sub-menus/{id}/destroy', [SubmenuController::class, 'destroy'])->middleware('can:delete-sub-menus');
+    Route::post('/sub-menus/store', [SubmenuController::class, 'store'])->middleware('can:create-sub-menus');
 
     // Menu Group
-    Route::get('/menu_groups', [MenuGroupController::class, 'index'])->middleware('can:read-menugroups');
-    Route::post('/menu_groups/store', [MenuGroupController::class, 'store'])->middleware('can:create-menugroups');
+    Route::get('/menu-groups', [MenuGroupController::class, 'index'])->middleware('can:read-menu-groups');
+    Route::post('/menu-groups/store', [MenuGroupController::class, 'store'])->middleware('can:create-menu-groups');
 });
 
