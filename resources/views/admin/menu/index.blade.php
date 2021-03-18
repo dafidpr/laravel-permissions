@@ -109,8 +109,12 @@
                                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <ul class="link-list-opt no-bdr">
-                                                                <li><a href="/administrator/menus/{{ Hashids::encode($backend->id).'/edit' }}"><em class="icon ni ni-edit"></em><span>Edit Menu</span></a></li>
-                                                                <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Menu</span></a></li>
+                                                                @can('update-menus') 
+                                                                    <li><a href="/administrator/menus/{{ Hashids::encode($backend->id).'/edit' }}"><em class="icon ni ni-edit"></em><span>Edit Menu</span></a></li>
+                                                                @endcan
+                                                                @can('delete-menus')
+                                                                    <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Menu</span></a></li>
+                                                                @endcan
                                                             </ul>
                                                         </div>
                                                     </div>

@@ -12,7 +12,7 @@
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            <li><a href="/administrator/submenus" class="btn btn-light bg-white"><em class="icon ni ni-arrow-left"></em><span> Back</span></a></li>
+                            <li><a href="/administrator/sub-menus" class="btn btn-light bg-white"><em class="icon ni ni-arrow-left"></em><span> Back</span></a></li>
                         </ul>
                     </div>
                 </div><!-- .toggle-wrap -->
@@ -23,7 +23,7 @@
         <div class="card card-bordered card-stretch">
             <div class="card-inner">
                 <div class="preview-block">
-                    <form action="{{ $action }}" method="post" id="formSubmit">
+                    <form action="{{ $action }}" met-hod="post" id="formSubmit">
                         <div class="row gy-4">
                             <div class="col-sm-6">
                                 <div class="form-group">

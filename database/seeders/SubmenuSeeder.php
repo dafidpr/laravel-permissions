@@ -52,7 +52,7 @@ class SubmenuSeeder extends Seeder
             [
                 'menu_id'   => 3,
                 'title'     => 'Sub Menu',
-                'url'       => '/administrator/submenus',
+                'url'       => '/administrator/sub-menus',
                 'target'    => 'none',
                 'position'  => '2',
                 'created_by'=> '1',
@@ -63,7 +63,7 @@ class SubmenuSeeder extends Seeder
             [
                 'menu_id'   => 3,
                 'title'     => 'Menu Groups',
-                'url'       => '/administrator/menu_groups',
+                'url'       => '/administrator/menu-groups',
                 'target'    => 'none',
                 'position'  => '3',
                 'created_by'=> '1',

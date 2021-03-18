@@ -114,7 +114,7 @@ class SubmenuController extends Controller
     {
         $ids = Hashids::decode($id);
         $data = [
-            'title'=> 'Create Sub Menu',
+            'title'=> 'Edit Sub Menu',
             'mod'  => 'mod_submenu',
             'action' => '/administrator/sub-menus/'.$id.'/update',
             'menu_groups'   => Menu::all(),

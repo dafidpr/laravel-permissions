@@ -30,18 +30,20 @@
                 <div class="card-inner position-relative card-tools-toggle">
                     <div class="card-title-group">
                         <div class="card-tools">
-                            <div class="form-inline flex-nowrap gx-3">
-                                <div class="form-wrap w-150px">
-                                    <select class="form-select form-select-sm" data-search="off" data-placeholder="Bulk Action">
-                                        <option value="">Bulk Action</option>
-                                        <option value="delete">Delete</option>
-                                    </select>
-                                </div>
-                                <div class="btn-wrap">
-                                    <span class="d-none d-md-block"><button class="btn btn-dim btn-outline-light disabled">Apply</button></span>
-                                    <span class="d-md-none"><button class="btn btn-dim btn-outline-light btn-icon disabled"><em class="icon ni ni-arrow-right"></em></button></span>
-                                </div>
-                            </div><!-- .form-inline -->
+                            @can('delete-roles')    
+                                <div class="form-inline flex-nowrap gx-3">
+                                    <div class="form-wrap w-150px">
+                                        <select class="form-select form-select-sm" data-search="off" data-placeholder="Bulk Action">
+                                            <option value="">Bulk Action</option>
+                                            <option value="delete">Delete</option>
+                                        </select>
+                                    </div>
+                                    <div class="btn-wrap">
+                                        <span class="d-none d-md-block"><button class="btn btn-dim btn-outline-light disabled">Apply</button></span>
+                                        <span class="d-md-none"><button class="btn btn-dim btn-outline-light btn-icon disabled"><em class="icon ni ni-arrow-right"></em></button></span>
+                                    </div>
+                                </div><!-- .form-inline -->
+                            @endcan
                         </div><!-- .card-tools -->
                     </div><!-- .card-title-group -->
                 </div><!-- .card-inner -->
@@ -82,10 +84,16 @@
                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <ul class="link-list-opt no-bdr">
-                                                        <li><a class="edit" data-id="{{ Hashids::encode($item->id) }}" href="#myModal" data-toggle="modal"><em class="icon ni ni-edit"></em><span>Edit Role</span></a></li>
-                                                        <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Role</span></a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="/administrator/roles/{{ Hashids::encode($item->id) }}/changes"><em class="icon ni ni-shield-star"></em><span>Change Permission</span></a></li>
+                                                        @can('update-roles')
+                                                            <li><a class="edit" data-id="{{ Hashids::encode($item->id) }}" href="#myModal" data-toggle="modal"><em class="icon ni ni-edit"></em><span>Edit Role</span></a></li>
+                                                        @endcan
+                                                        @can('delete-roles')
+                                                            <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Role</span></a></li>
+                                                        @endcan
+                                                        @can('update-roles')
+                                                            <li class="divider"></li>
+                                                            <li><a href="/administrator/roles/{{ Hashids::encode($item->id) }}/changes"><em class="icon ni ni-shield-star"></em><span>Change Permission</span></a></li>
+                                                        @endcan
                                                     </ul>
                                                 </div>
                                             </div>

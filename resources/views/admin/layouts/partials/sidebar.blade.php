@@ -23,7 +23,6 @@
                             @endif
                             @foreach ($menuGroup->menu as $menu)
                                 @if (count($menu->submenu) > 0)
-
                                         <li class="nk-menu-item has-sub">
                                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                                 <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
@@ -39,9 +38,8 @@
                                                 @endforeach
                                             </ul><!-- .nk-menu-sub -->
                                         </li><!-- .nk-menu-item -->
-
-                                @else
-                                    @can('read-' . explode('/', $menu->url)[2])
+                                    @else
+                                        @can('read-' . explode('/', $menu->url)[2])
                                         <li class="nk-menu-item">
                                             <a href="{{ $menu->url }}" class="nk-menu-link">
                                                 <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
@@ -49,7 +47,7 @@
                                             </a>
                                         </li>
                                         @endcan
-                                    @endif
+                                @endif
                             @endforeach
                         @endforeach
                     </ul><!-- .nk-menu -->
