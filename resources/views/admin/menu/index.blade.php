@@ -40,18 +40,20 @@
                         <div class="card-inner position-relative card-tools-toggle">
                             <div class="card-title-group">
                                 <div class="card-tools">
-                                    <div class="form-inline flex-nowrap gx-3">
-                                        <div class="form-wrap w-150px">
-                                            <select class="form-select form-select-sm" data-search="off" data-placeholder="Bulk Action">
-                                                <option value="">Bulk Action</option>
-                                                <option value="delete">Delete</option>
-                                            </select>
-                                        </div>
-                                        <div class="btn-wrap">
-                                            <span class="d-none d-md-block"><button class="btn btn-dim btn-outline-light disabled">Apply</button></span>
-                                            <span class="d-md-none"><button class="btn btn-dim btn-outline-light btn-icon disabled"><em class="icon ni ni-arrow-right"></em></button></span>
-                                        </div>
-                                    </div><!-- .form-inline -->
+                                    @can('delete-menus')     
+                                        <div class="form-inline flex-nowrap gx-3">
+                                            <div class="form-wrap w-150px">
+                                                <select class="form-select form-select-sm" data-search="off" data-placeholder="Bulk Action">
+                                                    <option value="">Bulk Action</option>
+                                                    <option value="delete">Delete</option>
+                                                </select>
+                                            </div>
+                                            <div class="btn-wrap">
+                                                <span class="d-none d-md-block"><button class="btn btn-dim btn-outline-light disabled">Apply</button></span>
+                                                <span class="d-md-none"><button class="btn btn-dim btn-outline-light btn-icon disabled"><em class="icon ni ni-arrow-right"></em></button></span>
+                                            </div>
+                                        </div><!-- .form-inline -->
+                                    @endcan
                                 </div><!-- .card-tools -->
                             </div><!-- .card-title-group -->
                         </div><!-- .card-inner -->
