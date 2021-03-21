@@ -109,30 +109,32 @@
                                     @endif
                                 </td>
                                 <td class="nk-tb-col nk-tb-col-tools">
-                                    <ul class="nk-tb-actions gx-1">
-                                        <li>
-                                            <div class="drodown">
-                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        @can('update-users')
-                                                            <li><a href="/administrator/users/{{ Hashids::encode($item->id) }}/edit"><em class="icon ni ni-edit"></em><span>Edit User</span></a></li> 
-                                                        @endcan
-                                                        @can('delete-users')
-                                                            <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete User</span></a></li>
-                                                        @endcan
-                                                        @can('read-users')
-                                                            <li><a href="#"><em class="icon ni ni-eye"></em><span>User Detail</span></a></li>
-                                                        @endcan
-                                                        @can('delete-users')     
-                                                            <li class="divider"></li>
-                                                            <li><a href="#"><em class="icon ni ni-na"></em><span>Block User</span></a></li>
-                                                        @endcan
-                                                    </ul>
+                                    @canany(['update-users','delete-users'])
+                                        <ul class="nk-tb-actions gx-1">
+                                            <li>
+                                                <div class="drodown">
+                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <ul class="link-list-opt no-bdr">
+                                                            @can('update-users')
+                                                                <li><a href="/administrator/users/{{ Hashids::encode($item->id) }}/edit"><em class="icon ni ni-edit"></em><span>Edit User</span></a></li> 
+                                                            @endcan
+                                                            @can('delete-users')
+                                                                <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete User</span></a></li>
+                                                            @endcan
+                                                            @can('read-users')
+                                                                <li><a href="#"><em class="icon ni ni-eye"></em><span>User Detail</span></a></li>
+                                                            @endcan
+                                                            @can('delete-users')     
+                                                                <li class="divider"></li>
+                                                                <li><a href="#"><em class="icon ni ni-na"></em><span>Block User</span></a></li>
+                                                            @endcan
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                            </li>
+                                        </ul>
+                                    @endcanany
                                 </td>
                             </tr><!-- .nk-tb-item -->
                             @endforeach

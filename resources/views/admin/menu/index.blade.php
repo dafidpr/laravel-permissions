@@ -105,23 +105,25 @@
                                             <span>{{ $backend->type }}</span>
                                         </td>
                                         <td class="nk-tb-col nk-tb-col-tools">
-                                            <ul class="nk-tb-actions gx-1">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                @can('update-menus') 
-                                                                    <li><a href="/administrator/menus/{{ Hashids::encode($backend->id).'/edit' }}"><em class="icon ni ni-edit"></em><span>Edit Menu</span></a></li>
-                                                                @endcan
-                                                                @can('delete-menus')
-                                                                    <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Menu</span></a></li>
-                                                                @endcan
-                                                            </ul>
+                                            @canany(['update-menus','delete-menus'])      
+                                                <ul class="nk-tb-actions gx-1">
+                                                    <li>
+                                                        <div class="drodown">
+                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                <ul class="link-list-opt no-bdr">
+                                                                    @can('update-menus') 
+                                                                        <li><a href="/administrator/menus/{{ Hashids::encode($backend->id).'/edit' }}"><em class="icon ni ni-edit"></em><span>Edit Menu</span></a></li>
+                                                                    @endcan
+                                                                    @can('delete-menus')
+                                                                        <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Menu</span></a></li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                                    </li>
+                                                </ul>
+                                            @endcanany
                                         </td>
                                     </tr><!-- .nk-tb-item -->
                                     @endforeach
@@ -199,19 +201,25 @@
                                             <span>{{ $frontend->group }}</span>
                                         </td>
                                         <td class="nk-tb-col nk-tb-col-tools">
-                                            <ul class="nk-tb-actions gx-1">
-                                                <li>
-                                                    <div class="drodown">
-                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                        <div class="dropdown-menu dropdown-menu-right">
-                                                            <ul class="link-list-opt no-bdr">
-                                                                <li><a href="/administrator/menus/{{ Hashids::encode($frontend->id).'/edit' }}"><em class="icon ni ni-edit"></em><span>Edit Menu</span></a></li>
-                                                                <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Menu</span></a></li>
-                                                            </ul>
+                                            @canany(['update-menus','delete-menus'])      
+                                                <ul class="nk-tb-actions gx-1">
+                                                    <li>
+                                                        <div class="drodown">
+                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                <ul class="link-list-opt no-bdr">
+                                                                    @can('update-menus') 
+                                                                        <li><a href="/administrator/menus/{{ Hashids::encode($backend->id).'/edit' }}"><em class="icon ni ni-edit"></em><span>Edit Menu</span></a></li>
+                                                                    @endcan
+                                                                    @can('delete-menus')
+                                                                        <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete Menu</span></a></li>
+                                                                    @endcan
+                                                                </ul>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                                    </li>
+                                                </ul>
+                                            @endcanany
                                         </td>
                                     </tr><!-- .nk-tb-item -->
                                     @endforeach
