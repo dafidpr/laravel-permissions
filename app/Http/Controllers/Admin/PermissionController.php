@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
-use DataTables;
 
 class PermissionController extends Controller
 {
@@ -24,16 +23,6 @@ class PermissionController extends Controller
         ];
         return view('admin.permission.index', $data);
     }
-
-    public function loadDatatable()
-    {
-        if(\Request::ajax()){
-            return Datatables::of(Permission::query())->make(true);
-        } else {
-            abort(403);
-        }
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -52,22 +41,22 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        if(\Request::ajax()){
+        if (\Request::ajax()) {
             $validator = Validator::make($request->All(), [
                 'name'      => 'required',
-                'permission'=> 'required|array|min:1'
+                'permission' => 'required|array|min:1'
             ]);
 
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return response()->json([
                     'messages' => $validator->messages()
                 ], 400);
             } else {
 
                 try {
-                    foreach($request->permission as $permission){
+                    foreach ($request->permission as $permission) {
                         Permission::create([
-                            'name'  => $permission .'-'.$request->name
+                            'name'  => $permission . '-' . $request->name
                         ]);
                     }
 
@@ -75,8 +64,7 @@ class PermissionController extends Controller
                         'messages'  => 'New permission successfuly created',
                         'redirect'  => '/administrator/permissions'
                     ], 200);
-
-                } catch (Exeption $e){
+                } catch (Exeption $e) {
                     return response()->json([
                         'messages' => 'Opps! Something wrong.'
                     ], 409);

@@ -5,9 +5,6 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\MenuController;
-use App\Http\Controllers\Admin\SubmenuController;
-use App\Http\Controllers\Admin\MenuGroupController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 
 /*
@@ -31,7 +28,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 
 // Route Administrator
-Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->group(function(){
+Route::prefix('administrator')->middleware(['auth.login_only'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('can:read-dashboard');
 
@@ -56,24 +53,4 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'append.menu'])->
     Route::get('/permissions', [PermissionController::class, 'index'])->middleware('can:read-permissions');
     Route::get('/permissions/loadDatatable', [PermissionController::class, 'loadDatatable']);
     Route::post('/permissions/store', [PermissionController::class, 'store'])->middleware('can:create-permissions');
-
-    // Menu
-    Route::get('/menus', [MenuController::class, 'index'])->middleware('can:read-menus');
-    Route::get('/menus/create', [MenuController::class, 'create'])->middleware('can:create-menus');
-    Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->middleware('can:update-menus');
-    Route::post('/menus/{id}/update', [MenuController::class, 'update'])->middleware('can:update-menus');
-    Route::post('/menus/store', [MenuController::class, 'store'])->middleware('can:create-menus');
-
-    // Sub menu
-    Route::get('/sub-menus', [SubmenuController::class, 'index'])->middleware('can:read-sub-menus');
-    Route::get('/sub-menus/create', [SubmenuController::class, 'create'])->middleware('can:create-sub-menus');
-    Route::get('/sub-menus/{id}/edit', [SubmenuController::class, 'edit'])->middleware('can:update-sub-menus');
-    Route::post('/sub-menus/{id}/update', [SubmenuController::class, 'update'])->middleware('can:update-sub-menus');
-    Route::post('/sub-menus/{id}/destroy', [SubmenuController::class, 'destroy'])->middleware('can:delete-sub-menus');
-    Route::post('/sub-menus/store', [SubmenuController::class, 'store'])->middleware('can:create-sub-menus');
-
-    // Menu Group
-    Route::get('/menu-groups', [MenuGroupController::class, 'index'])->middleware('can:read-menu-groups');
-    Route::post('/menu-groups/store', [MenuGroupController::class, 'store'])->middleware('can:create-menu-groups');
 });
-

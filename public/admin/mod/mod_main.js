@@ -20,6 +20,9 @@ $(document).ready(function () {
 	if (typeof dataTableOptions == "undefined") {
 		var dataTableOptions = null;
 	}
+	if (typeof datatableUrl == "undefined") {
+		var datatableUrl = null;
+	}
 
 	function loadData(columns = [], drawCallback) {
 

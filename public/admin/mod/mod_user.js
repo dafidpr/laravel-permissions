@@ -1,4 +1,3 @@
-var datatableUrl = "/administrator/users/loadDatatable";
 var displayErrors = [
     {
         display: '#nameErr',

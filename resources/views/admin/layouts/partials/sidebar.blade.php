@@ -15,41 +15,52 @@
             <div class="nk-sidebar-content">
                 <div class="nk-sidebar-menu">
                     <ul class="nk-menu">
-                        @foreach(request()->menus as $menuGroup)
-                            @if (count($menuGroup->menu) > 0)
-                                <li class="nk-menu-heading">
-                                    <h6 class="overline-title text-primary-alt">{{ $menuGroup->name }}</h6>
-                                </li><!-- .nk-menu-item -->
-                            @endif
-                            @foreach ($menuGroup->menu as $menu)
-                                @if (count($menu->submenu) > 0)
-                                        <li class="nk-menu-item has-sub">
-                                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                                <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
-                                                <span class="nk-menu-text">{{ $menu->title }}</span>
-                                            </a>
-                                            <ul class="nk-menu-sub">
-                                                @foreach ($menu->submenu as $submenu)
-                                                    @can('read-' . explode('/', $submenu->url)[2])
-                                                        <li class="nk-menu-item">
-                                                            <a href="{{ $submenu->url }}" class="nk-menu-link"><span class="nk-menu-text">{{ $submenu->title }}</span></a>
-                                                        </li>
-                                                    @endcan
-                                                @endforeach
-                                            </ul><!-- .nk-menu-sub -->
-                                        </li><!-- .nk-menu-item -->
-                                    @else
-                                        @can('read-' . explode('/', $menu->url)[2])
+                        @canany(['read-dashboard'])
+                            <li class="nk-menu-heading">
+                                <h6 class="overline-title text-primary-alt">Dashboards</h6>
+                            </li><!-- .nk-menu-item -->
+                        @endcanany
+                        @can('read-dashboard')     
+                            <li class="nk-menu-item">
+                                <a href="/administrator/dashboard" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-growth"></em></span>
+                                    <span class="nk-menu-text">Analytics Dashboard</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                        @endcan
+                        @canany(['read-users','read-roles','read-permissions'])
+                            <li class="nk-menu-heading">
+                                <h6 class="overline-title text-primary-alt">Applications</h6>
+                            </li><!-- .nk-menu-heading -->
+                        @endcanany
+                        @canany(['read-users','read-roles'])
+                            <li class="nk-menu-item has-sub">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                    <span class="nk-menu-text">Management Users</span>
+                                </a>
+                                <ul class="nk-menu-sub">
+                                    @can('read-users') 
                                         <li class="nk-menu-item">
-                                            <a href="{{ $menu->url }}" class="nk-menu-link">
-                                                <span class="nk-menu-icon"><em class="{{ $menu->icon }}"></em></span>
-                                                <span class="nk-menu-text">{{ $menu->title }}</span>
-                                            </a>
+                                            <a href="/administrator/users" class="nk-menu-link"><span class="nk-menu-text">Users</span></a>
                                         </li>
-                                        @endcan
-                                @endif
-                            @endforeach
-                        @endforeach
+                                    @endcan
+                                    @can('read-roles') 
+                                        <li class="nk-menu-item">
+                                            <a href="/administrator/roles" class="nk-menu-link"><span class="nk-menu-text">Roles</span></a>
+                                        </li>
+                                    @endcan
+                                </ul><!-- .nk-menu-sub -->
+                            </li><!-- .nk-menu-item -->
+                        @endcanany
+                        @can('read-permissions') 
+                            <li class="nk-menu-item">
+                                <a href="/administrator/permissions" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-security"></em></span>
+                                    <span class="nk-menu-text">Permissions</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                        @endcan
                     </ul><!-- .nk-menu -->
                 </div><!-- .nk-sidebar-menu -->
                 <div class="nk-sidebar-footer">
