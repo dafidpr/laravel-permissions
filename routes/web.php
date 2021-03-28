@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\Auth\AuthController;
+use App\Http\Controllers\Admin\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,4 +54,7 @@ Route::prefix('administrator')->middleware(['auth.login_only'])->group(function 
     Route::get('/permissions', [PermissionController::class, 'index'])->middleware('can:read-permissions');
     Route::get('/permissions/loadDatatable', [PermissionController::class, 'loadDatatable']);
     Route::post('/permissions/store', [PermissionController::class, 'store'])->middleware('can:create-permissions');
+
+    // Settings
+    Route::get('/settings', [SettingController::class, 'index'])->middleware('can:read-settings');
 });

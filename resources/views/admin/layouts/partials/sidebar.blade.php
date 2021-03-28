@@ -61,6 +61,19 @@
                                 </a>
                             </li><!-- .nk-menu-item -->
                         @endcan
+                        @canany(['read-settings'])
+                            <li class="nk-menu-heading">
+                                <h6 class="overline-title text-primary-alt">Settings</h6>
+                            </li><!-- .nk-menu-heading -->
+                        @endcanany
+                        @can('read-settings') 
+                            <li class="nk-menu-item">
+                                <a href="/administrator/settings" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
+                                    <span class="nk-menu-text">Settings</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                        @endcan
                     </ul><!-- .nk-menu -->
                 </div><!-- .nk-sidebar-menu -->
                 <div class="nk-sidebar-footer">

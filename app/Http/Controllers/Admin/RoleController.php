@@ -20,7 +20,7 @@ class RoleController extends Controller
     {
         // dd(\getInfoLogin()->can('read-dashboard'));
         $data = [
-            'title' => 'Role Lists',
+            'title' => 'Roles',
             'mod'   => 'mod_role',
             'collection' => Role::all()
         ];
@@ -45,12 +45,12 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        if(\Request::ajax()){
+        if (\Request::ajax()) {
             $validator = Validator::make($request->All(), [
                 'role'      => 'required',
             ]);
 
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return response()->json([
                     'messages' => $validator->messages()
                 ], 400);
@@ -65,8 +65,7 @@ class RoleController extends Controller
                         'messages'  => 'New role successfuly created',
                         'redirect'  => '/administrator/roles'
                     ], 200);
-
-                } catch (Exeption $e){
+                } catch (Exeption $e) {
                     return response()->json([
                         'messages' => 'Opps! Something wrong.'
                     ], 409);
@@ -86,18 +85,16 @@ class RoleController extends Controller
     public function show($id)
     {
         $ids = Hashids::decode($id);
-        if(\Request::ajax()){
+        if (\Request::ajax()) {
             try {
                 return response()->json([
                     'response'  => Role::find($ids[0]),
                 ], 200);
-
-            } catch (Exeption $e){
+            } catch (Exeption $e) {
                 return response()->json([
                     'messages' => 'Opps! Something wrong.'
                 ], 409);
             }
-
         } else {
             abort(403);
         }
@@ -140,7 +137,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(\Request::ajax()){
+        if (\Request::ajax()) {
 
             try {
                 $role = Role::findOrFail($id);
@@ -153,13 +150,11 @@ class RoleController extends Controller
                     'messages'  => 'Permission successfuly changed',
                     'redirect'  => '/administrator/roles'
                 ], 200);
-
-            } catch (Exeption $e){
+            } catch (Exeption $e) {
                 return response()->json([
                     'messages' => 'Opps! Something wrong.'
                 ], 409);
             }
-
         } else {
             abort(403);
         }

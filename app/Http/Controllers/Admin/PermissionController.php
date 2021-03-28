@@ -17,7 +17,7 @@ class PermissionController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Permission Lists',
+            'title' => 'Permissions',
             'mod'   => 'mod_permission',
             'collection' => Permission::all()
         ];

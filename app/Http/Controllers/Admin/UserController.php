@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'User Lists',
+            'title' => 'Users',
             'mod'   => 'mod_user',
             'collection' => User::with('roles')->get()
         ];
