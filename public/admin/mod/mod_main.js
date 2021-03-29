@@ -158,7 +158,7 @@ $(document).ready(function () {
 						Swal.fire({
 							title: 'Error ' + xhr.status,
 							icon: "error",
-							text: 'GET ' + url + '/' + $('#formSubmit').attr('action') + ' ' + thrownError
+							text: thrownError
 						});
 					}
 				},

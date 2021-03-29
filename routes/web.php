@@ -52,9 +52,10 @@ Route::prefix('administrator')->middleware(['auth.login_only'])->group(function 
 
     // Permissions
     Route::get('/permissions', [PermissionController::class, 'index'])->middleware('can:read-permissions');
-    Route::get('/permissions/loadDatatable', [PermissionController::class, 'loadDatatable']);
     Route::post('/permissions/store', [PermissionController::class, 'store'])->middleware('can:create-permissions');
 
     // Settings
     Route::get('/settings', [SettingController::class, 'index'])->middleware('can:read-settings');
+    Route::get('/settings/{id}/edit', [SettingController::class, 'edit'])->middleware('can:update-settings');
+    Route::post('/settings/{id}/update', [SettingController::class, 'update'])->middleware('can:update-settings');
 });

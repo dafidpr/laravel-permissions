@@ -16,10 +16,11 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('groups')->nullable();
-			$table->string('options')->nullable();
-			$table->text('value')->nullable();
-			$table->integer('created_by');
-			$table->integer('updated_by');
+            $table->string('options')->nullable();
+            $table->text('value')->nullable();
+            $table->enum('is_default', ['Y', 'N']);
+            $table->integer('created_by');
+            $table->integer('updated_by');
             $table->timestamps();
         });
     }
