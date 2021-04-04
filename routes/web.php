@@ -58,4 +58,5 @@ Route::prefix('administrator')->middleware(['auth.login_only'])->group(function 
     Route::get('/settings', [SettingController::class, 'index'])->middleware('can:read-settings');
     Route::get('/settings/{id}/edit', [SettingController::class, 'edit'])->middleware('can:update-settings');
     Route::post('/settings/{id}/update', [SettingController::class, 'update'])->middleware('can:update-settings');
+    Route::post('/settings/{id}/maintenance', [SettingController::class, 'maintenanceMode'])->middleware('can:update-settings');
 });

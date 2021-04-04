@@ -16,13 +16,10 @@ class SettingController extends Controller
         $data = [
             'title' => 'Settings',
             'mod'   => 'mod_setting',
-            'general' => Setting::where('groups', 'General')->get()
+            'general' => Setting::where('groups', 'General')->get(),
+            'config' => Setting::where('groups', 'Config')->get()
         ];
         return view('admin.setting.index', $data);
-    }
-
-    public function create(Request $request)
-    {
     }
 
     public function edit($id)
@@ -71,6 +68,26 @@ class SettingController extends Controller
                         'messages' => 'Opps! Something wrong.'
                     ], 409);
                 }
+            }
+        } else {
+            abort(403);
+        }
+    }
+
+    public function maintenanceMode($id)
+    {
+        $ids = Hashids::decode($id);
+        if (\Request::ajax()) {
+            try {
+                $settingUpdate = Setting::where('id', $ids[0])->update(['value' => 'Y']);
+                return response()->json([
+                    'messages'  => 'Setting successfuly updated',
+                    'redirect'  => '/administrator/settings'
+                ], 200);
+            } catch (Exeption $e) {
+                return response()->json([
+                    'messages' => 'Opps! Something wrong.'
+                ], 409);
             }
         } else {
             abort(403);

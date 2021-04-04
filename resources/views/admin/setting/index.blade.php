@@ -68,6 +68,32 @@
                                     <h5 class="title">Config Settings</h5>
                                     <p>Your application configuration settings are here.</p>
                                 </div><!-- .nk-block-head -->
+                                <div class="card card-bordered">
+                                    <div class="card-inner-group">
+                                        @foreach ($config as $configSetting)
+                                        @if ($configSetting->options == 'maintenance_mode')     
+                                            <div class="card-inner">
+                                                <div class="between-center flex-wrap flex-md-nowrap g-3">
+                                                    <div class="nk-block-text">
+                                                        <h6>Maintenance Mode</h6>
+                                                        <p>You can set the maintenance mode here.</p>
+                                                    </div>
+                                                    <div class="nk-block-actions">
+                                                        <ul class="align-center gx-3">
+                                                            <li class="order-md-last">
+                                                                <div class="custom-control custom-switch mr-n2">
+                                                                    <input type="checkbox" class="custom-control-input" {{ $configSetting->value == 'Y' ? 'checked="checked"' : '' }} id="maintenance-mode" onchange="maintenanceMode('{{ Hashids::encode($configSetting->id) }}')">
+                                                                    <label class="custom-control-label" for="maintenance-mode"></label>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                        @endif
+                                        @endforeach
+                                    </div><!-- .card-inner-group -->
+                                </div><!-- .card -->
                             </div>
                         </div><!-- .card-inner -->
                     </div>
