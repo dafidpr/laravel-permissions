@@ -49,6 +49,7 @@ Route::prefix('administrator')->middleware(['auth.login_only'])->group(function 
     Route::post('/roles/{id}/update', [RoleController::class, 'update'])->middleware('can:update-roles');
     Route::get('/roles/{id}/show', [RoleController::class, 'show'])->middleware('can:update-roles');
     Route::post('/roles/{id}/update', [RoleController::class, 'update'])->middleware('can:update-roles');
+    Route::post('/roles/{id}/change-permission', [RoleController::class, 'changePermission'])->middleware('can:update-roles');
 
     // Permissions
     Route::get('/permissions', [PermissionController::class, 'index'])->middleware('can:read-permissions');

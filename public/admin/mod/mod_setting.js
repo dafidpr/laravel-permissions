@@ -13,12 +13,12 @@ var displayErrors = [
     }
 ];
 
-function maintenanceMode(e){
+function maintenanceMode(param){
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: url + '/administrator/settings/'+ e +'/maintenance',
+        url: url + '/administrator/settings/'+ param +'/maintenance',
         method:"post",
         dataType: "json",
         success: function (data) {

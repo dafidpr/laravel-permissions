@@ -6,16 +6,14 @@ var displayErrors = [
     }
 ];
 
-$('.edit').click(() => {
+$('.edit').click(function() {
     let id = $(this).data('id');
-    $('#myModal form').attr('action', '/administrator/roles/'+id+'/update');
-    console.log(id);
+    $('#myModal form').attr('action', '/administrator/roles/'+ id +'/update');
     $.ajax({
         url: url + '/administrator/roles/'+ id +'/show',
         dataType: 'json',
-        success:function(response){
-            console.log(response);
-            $('#role').val(response.name);
+        success:function(res){
+            $('#role').val(res.response.name);
         } 
     });
 })

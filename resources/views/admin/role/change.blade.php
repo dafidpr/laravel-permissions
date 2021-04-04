@@ -23,7 +23,7 @@
         <div class="card card-bordered card-stretch">
             <div class="card-inner">
                 <div class="preview-block">
-                    <form action="/administrator/roles/{{ $role->id }}/update" method="post" id="formSubmit">
+                    <form action="{{ $action }}" method="post" id="formSubmit">
                         <div class="row gy-4">
                             <div class="col-md-12 text-center">
                                 <div class="form-check">

@@ -49,7 +49,6 @@ class RoleController extends Controller
             $validator = Validator::make($request->All(), [
                 'role'      => 'required',
             ]);
-
             if ($validator->fails()) {
                 return response()->json([
                     'messages' => $validator->messages()
@@ -114,15 +113,15 @@ class RoleController extends Controller
         $permissions = Permission::all()->pluck('name');
 
         foreach ($permissions as $permission) {
-            // $remappedPermission[implode('-',array_slice(explode('-', $permission), 1))][] = $permission;
             $remappedPermission[explode('-', $permission)[1]][] = $permission;
         }
 
         $data = [
-            'title'         => 'Change Permission',
-            'mod'           => 'mod_role',
-            'role'          => Role::findOrFail($ids[0]),
-            'permissions'   => $remappedPermission,
+            'title' => 'Change Permission',
+            'mod' => 'mod_role',
+            'role' => Role::findOrFail($ids[0]),
+            'permissions' => $remappedPermission,
+            'action' => '/administrator/roles/' . $id . '/change-permission'
         ];
 
         return view('admin.role.change', $data);
@@ -137,23 +136,29 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $ids = Hashids::decode($id);
         if (\Request::ajax()) {
-
-            try {
-                $role = Role::findOrFail($id);
-
-                if ($request->has('permission')) {
-                    $role->syncPermissions($request->permission);
+            $validator = Validator::make($request->All(), [
+                'role'      => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'messages' => $validator->messages()
+                ], 400);
+            } else {
+                try {
+                    Role::where('id', $ids[0])->update([
+                        'name'      => $request->role,
+                    ]);
+                    return response()->json([
+                        'messages'  => 'Role successfuly updated',
+                        'redirect'  => '/administrator/roles'
+                    ], 200);
+                } catch (Exeption $e) {
+                    return response()->json([
+                        'messages' => 'Opps! Something wrong.'
+                    ], 409);
                 }
-
-                return response()->json([
-                    'messages'  => 'Permission successfuly changed',
-                    'redirect'  => '/administrator/roles'
-                ], 200);
-            } catch (Exeption $e) {
-                return response()->json([
-                    'messages' => 'Opps! Something wrong.'
-                ], 409);
             }
         } else {
             abort(403);
@@ -169,5 +174,29 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function changePermission(Request $request, $id)
+    {
+        $ids = Hashids::decode($id);
+        if (\Request::ajax()) {
+
+            try {
+                $role = Role::findOrFail($ids[0]);
+                if ($request->has('permission')) {
+                    $role->syncPermissions($request->permission);
+                }
+                return response()->json([
+                    'messages'  => 'Permission successfuly changed',
+                    'redirect'  => '/administrator/roles'
+                ], 200);
+            } catch (Exeption $e) {
+                return response()->json([
+                    'messages' => 'Opps! Something wrong.'
+                ], 409);
+            }
+        } else {
+            abort(403);
+        }
     }
 }
