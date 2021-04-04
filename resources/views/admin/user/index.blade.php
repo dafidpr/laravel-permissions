@@ -125,9 +125,9 @@
                                                             @can('read-users')
                                                                 <li><a href="#"><em class="icon ni ni-eye"></em><span>User Detail</span></a></li>
                                                             @endcan
-                                                            @can('delete-users')     
+                                                            @can('update-users')     
                                                                 <li class="divider"></li>
-                                                                <li><a href="#"><em class="icon ni ni-na"></em><span>Block User</span></a></li>
+                                                                <li><a href="#" class="block-user" data-id="{{ Hashids::encode($item->id) }}"><em class="{{ $item->block == 'N' ? 'icon ni ni-na' : 'icon ni ni-unlock' }}"></em><span>{{ $item->block == 'N' ? 'Block User' : 'Unblock User' }}</span></a></li>
                                                             @endcan
                                                         </ul>
                                                     </div>

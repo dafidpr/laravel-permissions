@@ -250,10 +250,8 @@ class UserController extends Controller
                     'messages' => $validator->messages()
                 ], 400);
             } else {
-
                 try {
                     User::where('id', $user->id)->update(['password' => Hash::make($request->new_password)]);
-
                     return response()->json([
                         'messages'  => 'Password successfuly updated',
                         'redirect'  => '/administrator/users/change_password'
@@ -263,6 +261,27 @@ class UserController extends Controller
                         'messages' => 'Opps! Something wrong.'
                     ], 409);
                 }
+            }
+        } else {
+            abort(403);
+        }
+    }
+
+    public function blockUser($id)
+    {
+        $ids = Hashids::decode($id);
+        if (\Request::ajax()) {
+            try {
+                $user = User::findOrFail($ids[0]);
+                $blockUser = User::where('id', $ids[0])->update(['block' => $user->block == 'Y' ? 'N' : 'Y']);
+                return response()->json([
+                    'messages'  => 'User successfuly blocked',
+                    'redirect'  => '/administrator/users'
+                ], 200);
+            } catch (Exeption $e) {
+                return response()->json([
+                    'messages' => 'Opps! Something wrong.'
+                ], 409);
             }
         } else {
             abort(403);
