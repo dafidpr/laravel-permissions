@@ -68,6 +68,16 @@ class SettingSeeder extends Seeder
             ],
             [
                 'groups' => 'General',
+                'options' => 'copyright',
+                'value' => 'Web Media Solusi Digital',
+                'is_default' => 'Y',
+                'created_by' => '1',
+                'updated_by' => '1',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'groups' => 'General',
                 'options' => 'email',
                 'value' => 'contact@webmediadigital.com',
                 'is_default' => 'Y',

@@ -29,7 +29,7 @@ class RoleSeeder extends Seeder
         $developerRole->givePermissionTo(['read-dashboard', 'read-roles', 'create-roles', 'update-roles', 'delete-roles']);
         $developerRole->givePermissionTo(['read-permissions', 'create-permissions', 'update-permissions', 'delete-permissions']);
         $developerRole->givePermissionTo(['read-users', 'create-users', 'update-users', 'delete-users']);
-        $developerRole->givePermissionTo(['read-settings', 'create-settings', 'update-settings', 'delete-settings']);
+        $developerRole->givePermissionTo(['read-settings', 'update-settings', 'delete-settings']);
         $developerRole->givePermissionTo('read-dashboard');
         $administratorRole->givePermissionTo('read-dashboard');
     }

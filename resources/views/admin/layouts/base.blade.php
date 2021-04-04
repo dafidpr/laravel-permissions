@@ -7,13 +7,13 @@
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('admin/uploads/img/' .getSetting('favicon')) }}">
     <title>{{ $title .' | '. getSetting('web_name') }}</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('admin/assets/assets/css/dashlite.css?ver=2.2.0') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/assets/css/style.css') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('admin/assets/assets/css/theme.css?ver=2.2.0') }}">
-
+ 
     <!-- Start datatable css -->
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/vendor/datatables/buttons.bootstrap4.min.css') }}">
@@ -26,7 +26,7 @@
 <body class="nk-body bg-white has-sidebar ">
     <div class="pre-loader">
         <div class="pre-loader-content">
-            <img src="{{ asset('admin/assets/images/logo-dark.png') }}" class="w-100" alt="">
+            <img src="{{ asset('admin/uploads/img/' .getSetting('logo')) }}" class="w-100" alt="">
         </div>
     </div>
 

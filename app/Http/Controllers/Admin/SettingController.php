@@ -8,6 +8,7 @@ use App\Models\Setting;
 use Illuminate\Support\Carbon;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Facades\Validator;
+use File;
 
 class SettingController extends Controller
 {
@@ -17,7 +18,8 @@ class SettingController extends Controller
             'title' => 'Settings',
             'mod'   => 'mod_setting',
             'general' => Setting::where('groups', 'General')->get(),
-            'config' => Setting::where('groups', 'Config')->get()
+            'config' => Setting::where('groups', 'Config')->get(),
+            'image' => Setting::where('groups', 'Image')->get()
         ];
         return view('admin.setting.index', $data);
     }
@@ -49,12 +51,21 @@ class SettingController extends Controller
                     'messages' => $validator->messages()
                 ], 400);
             } else {
-
+                $path = 'admin/uploads/img/';
+                $setting = Setting::findOrFail($ids[0]);
+                $fileName = $setting->value;
+                if ($request->file('value') != null) {
+                    if ($fileName != 'logo.png' || $fileName != 'favicon.png') {
+                        File::delete($path . $fileName);
+                    }
+                    $fileName = $request->file('value')->getClientOriginalName();
+                    $request->file('value')->move(public_path($path), $fileName);
+                }
                 try {
                     $settingUpdate = Setting::where('id', $ids[0])->update([
                         'groups' => $request->group,
                         'options' => $request->option,
-                        'value' => $request->value,
+                        'value' => $setting->groups != 'Image' ? $request->value : $fileName,
                         'updated_by' => \getInfoLogin()->id,
                         'updated_at' => Carbon::now()
                     ]);
@@ -79,7 +90,8 @@ class SettingController extends Controller
         $ids = Hashids::decode($id);
         if (\Request::ajax()) {
             try {
-                $settingUpdate = Setting::where('id', $ids[0])->update(['value' => 'Y']);
+                $setting = Setting::findOrFail($ids[0]);
+                $settingUpdate = Setting::where('id', $ids[0])->update(['value' => $setting->value == 'Y' ? 'N' : 'Y']);
                 return response()->json([
                     'messages'  => 'Setting successfuly updated',
                     'redirect'  => '/administrator/settings'

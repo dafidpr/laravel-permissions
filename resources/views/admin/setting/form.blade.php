@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
 @section('content')
-
 <div class="nk-content-body">
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between">
@@ -49,8 +48,21 @@
                                 <div class="form-group">
                                     <label class="form-label" for="default-01">Value <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="value" name="value" placeholder="Value" autocomplete="off" value="{{ isset($settings->value) ? $settings->value : '' }}">
-                                        <i class="text-danger small d-none" id="valueErr"></i>
+                                        @if ($settings->groups == 'Image')
+                                            <div class="img-prev">
+                                                <img src="" id="imgPreview" class="d-none" alt="Image">
+                                                <input type="file" id="value" name="value" class="d-none">
+                                            </div>
+                                            <div>     
+                                                <label for="value" class="btn btn-dim btn-outline-primary btn-action mt-3">
+                                                    <span>Upload Image</span><em class="icon ni ni-upload"></em>
+                                                </label>
+                                            </div>
+                                            <i class="text-danger small d-none" id="valueErr"></i>
+                                        @else
+                                            <input type="text" class="form-control" id="value" name="value" placeholder="Value" autocomplete="off" value="{{ isset($settings->value) ? $settings->value : '' }}">
+                                            <i class="text-danger small d-none" id="valueErr"></i>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

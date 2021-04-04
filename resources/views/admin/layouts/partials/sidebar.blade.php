@@ -1,9 +1,9 @@
 <div class="nk-sidebar nk-sidebar-fixed " data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
-            <a href="html/index.html" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="{{ asset('admin/assets/images/logo.png') }}" srcset="{{ asset('admin/assets/images/logo2x.png 2x') }}" alt="logo">
-                <img class="logo-dark logo-img" src="{{ asset('admin/assets/images/logo-dark.png') }}" srcset="{{ asset('admin/assets/images/logo-dark2x.png 2x') }}" alt="logo-dark">
+            <a href="/administrator/dashboard" class="logo-link nk-sidebar-logo">
+                <img class="logo-light logo-img" src="{{ asset('admin/uploads/img/'.getSetting('logo')) }}" srcset="{{ asset('admin/uploads/img/'.getSetting('logo')) }}" alt="logo">
+                <img class="logo-dark logo-img" src="{{ asset('admin/uploads/img/'.getSetting('logo')) }}" srcset="{{ asset('admin/uploads/img/'.getSetting('logo')) }}" alt="logo-dark">
             </a>
         </div>
         <div class="nk-menu-trigger mr-n2">

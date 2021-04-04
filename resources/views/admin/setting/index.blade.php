@@ -58,6 +58,20 @@
                                     <h5 class="title">Image Settings</h5>
                                     <p>Your app's image settings are here.</p>
                                 </div><!-- .nk-block-head -->
+                                <div class="nk-data data-list" style="margin-top:-5px">
+                                    <div class="data-head">
+                                        <h6 class="overline-title">Images</h6>
+                                    </div>
+                                    @foreach ($image as $imageSetting )    
+                                        <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                                            <div class="data-col">
+                                                <span class="data-label">{{ $imageSetting->options }}</span>
+                                                <span class="data-value">{{ $imageSetting->value }}</span>
+                                            </div>
+                                            <div class="data-col data-col-end"><a href="/administrator/settings/{{ Hashids::encode($imageSetting->id) }}/edit" class="data-more"><em class="icon ni ni-forward-ios"></em></a></div>
+                                        </div><!-- data-item -->
+                                    @endforeach
+                                </div><!-- data-list -->
                             </div>
                         </div><!-- .card-inner -->
                     </div>

@@ -37,3 +37,20 @@ function maintenanceMode(e){
         },
     });
 }
+
+function imgPreview(input){
+    if(input.files && input.files[0]){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        $('#imgPreview').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+$('#value').change(function(){
+    $('.fileuploader-thumbnails-input-inner i').html('');
+    $('#imgPreview').removeClass('d-none');
+
+    imgPreview(this);
+})
