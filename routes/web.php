@@ -29,7 +29,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 
 // Route Administrator
-Route::prefix('administrator')->middleware(['auth.login_only'])->group(function () {
+Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode', 'user_block_status'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('can:read-dashboard');
 
