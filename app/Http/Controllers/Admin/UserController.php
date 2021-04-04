@@ -114,7 +114,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $ids = Hashids::decode($id);
+        $data = [
+            'title' => 'User Detail',
+            'mod'   => 'mod_user',
+            'user' => User::with('roles')->find($ids[0]),
+        ];
+        return view('admin.user.detail', $data);
     }
 
     /**

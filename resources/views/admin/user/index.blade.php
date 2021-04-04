@@ -123,7 +123,7 @@
                                                                 <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete User</span></a></li>
                                                             @endcan
                                                             @can('read-users')
-                                                                <li><a href="#"><em class="icon ni ni-eye"></em><span>User Detail</span></a></li>
+                                                                <li><a href="/administrator/users/{{ Hashids::encode($item->id) }}/detail"><em class="icon ni ni-eye"></em><span>User Detail</span></a></li>
                                                             @endcan
                                                             @can('update-users')     
                                                                 <li class="divider"></li>
