@@ -36,7 +36,6 @@
                                         <select class="form-select form-select-sm" data-search="off" data-placeholder="Bulk Action">
                                             <option value="">Bulk Action</option>
                                             <option value="delete">Delete</option>
-                                            <option value="block">Block</option>
                                         </select>
                                     </div>
                                     <div class="btn-wrap">
@@ -122,9 +121,7 @@
                                                             @can('delete-users')
                                                                 <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete User</span></a></li>
                                                             @endcan
-                                                            @can('read-users')
                                                                 <li><a href="/administrator/users/{{ Hashids::encode($item->id) }}/detail"><em class="icon ni ni-eye"></em><span>User Detail</span></a></li>
-                                                            @endcan
                                                             @can('update-users')     
                                                                 <li class="divider"></li>
                                                                 <li><a href="#" class="block-user" data-id="{{ Hashids::encode($item->id) }}"><em class="{{ $item->block == 'N' ? 'icon ni ni-na' : 'icon ni ni-unlock' }}"></em><span>{{ $item->block == 'N' ? 'Block User' : 'Unblock User' }}</span></a></li>

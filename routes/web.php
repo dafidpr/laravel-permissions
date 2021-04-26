@@ -38,7 +38,7 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
     Route::get('/users/create', [UserController::class, 'create'])->middleware('can:create-users');
     Route::post('/users/store', [UserController::class, 'store'])->middleware('can:create-users');
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->middleware('can:update-users');
-    Route::get('/users/{id}/detail', [UserController::class, 'show'])->middleware('can:read-users');
+    Route::get('/users/{id}/detail', [UserController::class, 'show']);
     Route::post('/users/{id}/block', [UserController::class, 'blockUser'])->middleware('can:update-users');
     Route::post('/users/{id}/update', [UserController::class, 'update'])->middleware('can:update-users');
     Route::get('/users/change_password', [UserController::class, 'changePassword']);

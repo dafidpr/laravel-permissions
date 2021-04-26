@@ -19,6 +19,9 @@
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
                             <li><a href="/administrator/users" class="btn btn-light bg-white"><em class="icon ni ni-arrow-left"></em><span> Back</span></a></li>
+                            @can('update-users')
+                                <li><a href="/administrator/users/{{ Hashids::encode($user->id) }}/edit" class="btn btn-primary"><em class="icon ni ni-edit"></em><span>Edit Profile</span></a></li>
+                            @endcan
                         </ul>
                     </div>
                 </div><!-- .toggle-wrap -->

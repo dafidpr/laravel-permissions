@@ -30,7 +30,6 @@ class PermissionSeeder extends Seeder
             ['name' => 'delete-users', 'guard_name' => 'web', 'is_default' => 'Y'],
             ['name' => 'read-settings', 'guard_name' => 'web', 'is_default' => 'Y'],
             ['name' => 'update-settings', 'guard_name' => 'web', 'is_default' => 'Y'],
-            ['name' => 'delete-settings', 'guard_name' => 'web', 'is_default' => 'Y'],
         ]);
     }
 }

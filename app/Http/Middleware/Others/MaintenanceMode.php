@@ -22,5 +22,6 @@ class MaintenanceMode
             }
             abort(503);
         }
+        return $next($request);
     }
 }
